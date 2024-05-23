@@ -1,0 +1,47 @@
+{
+    "intents": [
+      {
+        "name": "ContactUs",
+        "sampleUtterances": [
+          "How can I contact customer service?",
+          "I need the phone number for your bank.",
+          "Where is your nearest branch located?"
+        ],
+        "slots": []
+      },
+      {
+        "name": "InquireInsurance",
+        "sampleUtterances": [
+          "What types of insurance do you offer?",
+          "Can you tell me about your life insurance policies?",
+          "I'm interested in auto insurance."
+        ],
+        "slots": []
+      },
+      {
+        "name": "CheckBalance",
+        "sampleUtterances": [
+          "What's my current account balance?",
+          "How much money do I have in my account right now?",
+          "Can you check my balance for me?"
+        ],
+        "slots": [
+          {
+            "name": "AccountType",
+            "slotType": "AccountTypes",
+            "slotConstraint": "Required",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "Which account type do you want to check, Checking or Savings?"
+                }
+              ],
+              "maxAttempts": 2
+            }
+          }
+        ]
+      }
+      // Add more intents here
+    ]
+  }

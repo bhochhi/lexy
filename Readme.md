@@ -44,6 +44,13 @@ Each intent within the bot is designed to handle specific tasks or responses, an
 ![alt text](image-5.png)
 
 
+### Rollback Strategy
+- in console you can export and import back.
+- through terraform as automation.
+  -
+
+
+
 
 ## Resources:
 - [How to approach conversation design: The basics (Part 1)](https://aws.amazon.com/blogs/machine-learning/part-1-approach-conversation-design-the-basics/)
@@ -51,3 +58,5 @@ Each intent within the bot is designed to handle specific tasks or responses, an
 - [Drive efficiencies with CI/CD best practices on Amazon Lex](https://aws.amazon.com/blogs/machine-learning/)drive-efficiencies-with-ci-cd-best-practices-on-amazon-lex/
 - https://www.youtube.com/watch?v=0zdU0W22F0s
 - [Amazon Lex Model Building Service](https://docs.aws.amazon.com/lex/latest/dg/API_Operations_Amazon_Lex_Model_Building_Service.html)
+- [Cost and Pricing](https://aws.amazon.com/lex/pricing/)
+- [How it works](https://docs.aws.amazon.com/lexv2/latest/dg/how-it-works.html)

@@ -1,0 +1,202 @@
+{
+  "name": "OrderFlowers",
+  "identifier": "MYSYM9B4IB",
+  "description": "Intent to order a bouquet of flowers for pick up",
+  "parentIntentSignature": null,
+  "sampleUtterances": [
+    { "utterance": "I would like to pick up flowers" },
+    { "utterance": "I would like to order some flowers" },
+    { "utterance": "can I order {FlowerType} " },
+    { "utterance": "{PickupDate} at {PickupTime}" }
+  ],
+  "intentConfirmationSetting": {
+    "isActive": true,
+    "promptSpecification": {
+      "messageGroupsList": [
+        {
+          "message": {
+            "ssmlMessage": null,
+            "customPayload": null,
+            "plainTextMessage": {
+              "value": "Okay, your {FlowerType} will be ready for pickup by {PickupTime} on {PickupDate}.  Does this sound okay?"
+            },
+            "imageResponseCard": null
+          },
+          "variations": null
+        }
+      ],
+      "maxRetries": 2,
+      "messageSelectionStrategy": "Random",
+      "allowInterrupt": true,
+      "promptAttemptsSpecification": {
+        "Retry2": {
+          "textInputSpecification": { "startTimeoutMs": 30000 },
+          "allowedInputTypes": {
+            "allowAudioInput": true,
+            "allowDTMFInput": true
+          },
+          "audioAndDTMFInputSpecification": {
+            "startTimeoutMs": 4000,
+            "audioSpecification": { "endTimeoutMs": 640, "maxLengthMs": 15000 },
+            "dtmfSpecification": {
+              "maxLength": 513,
+              "endTimeoutMs": 5000,
+              "deletionCharacter": "*",
+              "endCharacter": "#"
+            }
+          },
+          "allowInterrupt": true
+        },
+        "Retry1": {
+          "textInputSpecification": { "startTimeoutMs": 30000 },
+          "allowedInputTypes": {
+            "allowAudioInput": true,
+            "allowDTMFInput": true
+          },
+          "audioAndDTMFInputSpecification": {
+            "startTimeoutMs": 4000,
+            "audioSpecification": { "endTimeoutMs": 640, "maxLengthMs": 15000 },
+            "dtmfSpecification": {
+              "maxLength": 513,
+              "endTimeoutMs": 5000,
+              "deletionCharacter": "*",
+              "endCharacter": "#"
+            }
+          },
+          "allowInterrupt": true
+        },
+        "Initial": {
+          "textInputSpecification": { "startTimeoutMs": 30000 },
+          "allowedInputTypes": {
+            "allowAudioInput": true,
+            "allowDTMFInput": true
+          },
+          "audioAndDTMFInputSpecification": {
+            "startTimeoutMs": 4000,
+            "audioSpecification": { "endTimeoutMs": 640, "maxLengthMs": 15000 },
+            "dtmfSpecification": {
+              "maxLength": 513,
+              "endTimeoutMs": 5000,
+              "deletionCharacter": "*",
+              "endCharacter": "#"
+            }
+          },
+          "allowInterrupt": true
+        }
+      }
+    },
+    "declinationResponse": {
+      "messageGroupsList": [
+        {
+          "message": {
+            "ssmlMessage": null,
+            "customPayload": null,
+            "plainTextMessage": {
+              "value": "Okay, I will not place your order."
+            },
+            "imageResponseCard": null
+          },
+          "variations": null
+        }
+      ],
+      "allowInterrupt": true
+    },
+    "failureNextStep": {
+      "sessionAttributes": null,
+      "intent": { "name": "FallbackIntent", "slots": null },
+      "dialogAction": {
+        "type": "StartIntent",
+        "slotToElicit": null,
+        "suppressNextMessage": null
+      }
+    },
+    "elicitationCodeHook": {
+      "enableCodeHookInvocation": true,
+      "invocationLabel": null
+    },
+    "confirmationNextStep": {
+      "sessionAttributes": null,
+      "intent": { "name": null, "slots": null },
+      "dialogAction": {
+        "type": "EndConversation",
+        "slotToElicit": null,
+        "suppressNextMessage": null
+      }
+    },
+    "declinationNextStep": {
+      "sessionAttributes": null,
+      "intent": { "name": null, "slots": null },
+      "dialogAction": {
+        "type": "EndConversation",
+        "slotToElicit": null,
+        "suppressNextMessage": null
+      }
+    }
+  },
+  "intentClosingSetting": null,
+  "initialResponseSetting": {
+    "conditional": null,
+    "codeHook": {
+      "isActive": true,
+      "enableCodeHookInvocation": true,
+      "invocationLabel": null,
+      "postCodeHookSpecification": {
+        "failureResponse": null,
+        "failureNextStep": {
+          "sessionAttributes": null,
+          "intent": { "name": null, "slots": null },
+          "dialogAction": {
+            "type": "EndConversation",
+            "slotToElicit": null,
+            "suppressNextMessage": null
+          }
+        },
+        "failureConditional": null,
+        "successResponse": null,
+        "successNextStep": {
+          "sessionAttributes": null,
+          "intent": { "name": null, "slots": null },
+          "dialogAction": {
+            "type": "ElicitSlot",
+            "slotToElicit": "FlowerType",
+            "suppressNextMessage": null
+          }
+        },
+        "successConditional": null,
+        "timeoutResponse": null,
+        "timeoutNextStep": {
+          "sessionAttributes": null,
+          "intent": { "name": null, "slots": null },
+          "dialogAction": {
+            "type": "EndConversation",
+            "slotToElicit": null,
+            "suppressNextMessage": null
+          }
+        },
+        "timeoutConditional": null
+      }
+    },
+    "nextStep": {
+      "sessionAttributes": null,
+      "intent": { "name": null, "slots": null },
+      "dialogAction": {
+        "type": "InvokeDialogCodeHook",
+        "slotToElicit": null,
+        "suppressNextMessage": null
+      }
+    },
+    "initialResponse": null
+  },
+  "inputContexts": null,
+  "outputContexts": null,
+  "kendraConfiguration": null,
+  "qnAIntentConfiguration": null,
+  "bedrockAgentIntentConfiguration": null,
+  "dialogCodeHook": null,
+  "fulfillmentCodeHook": null,
+  "slotPriorities": [
+    { "priority": 1, "slotName": "FlowerType" },
+    { "priority": 3, "slotName": "PickupTime" },
+    { "priority": 2, "slotName": "PickupDate" }
+  ]
+}

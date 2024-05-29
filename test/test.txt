@@ -1,0 +1,82 @@
+I want to order
+Intent FallbackIntent is fulfilled
+can i order a flower?
+What type of flowers would you like to order?
+roses
+What day do you want the roses to be picked up?
+tomorrow
+At what time do you want the roses to be picked up?
+2pm
+Okay, your roses will be ready for pickup by 14:00 on 2024-05-30. Does this sound okay?
+yes
+Intent OrderFlowers is fulfilled
+can I order again?
+What type of flowers would you like to order?
+roses on next sunday at 10pm
+What type of flowers would you like to order?
+roses on next sunday at 10pm
+What type of flowers would you like to order?
+roses
+What day do you want the roses to be picked up?
+tomorrow at 10am
+What day do you want the roses to be picked up?
+next sunday
+At what time do you want the roses to be picked up?
+after 5pm
+Okay, your roses will be ready for pickup by 17:00 on 2024-06-09. Does this sound okay?
+No
+Okay, I will not place your order.
+order pizza
+What type of flowers would you like to order?
+pizza with chicken topping.
+What type of flowers would you like to order?
+pizza
+What type of flowers would you like to order?
+what kinds of flowers you have?
+Intent FallbackIntent is fulfilled
+lillies
+What type of flowers would you like to order?
+lilies
+What day do you want the lilies to be picked up?
+1st june
+At what time do you want the lilies to be picked up?
+10:34
+At what time do you want the lilies to be picked up?
+10:34pm
+Okay, your lilies will be ready for pickup by 22:34 on 2024-06-01. Does this sound okay?
+awesome
+Okay, your lilies will be ready for pickup by 22:34 on 2024-06-01. Does this sound okay?
+cool thanks
+Okay, your lilies will be ready for pickup by 22:34 on 2024-06-01. Does this sound okay?
+yes
+Intent OrderFlowers is fulfilled
+
+
+
+
+
+
+
+
+tomorrow at 10pm?
+What type of flowers would you like to order?
+roses
+Okay, your roses will be ready for pickup by 22:00 on 2024-05-30. Does this sound okay?
+
+
+
+order roses
+What day do you want the roses to be picked up?
+tomorrow
+At what time do you want the roses to be picked up?
+evening
+Okay, your roses will be ready for pickup by EV on 2024-05-30. Does this sound okay?
+ok
+Intent OrderFlowers is fulfilled
+
+
+
+>>>Intent utterance are use only during intent detection. but it can also collect the slots if intent utterances has slots labels<<<<<
+
+
+

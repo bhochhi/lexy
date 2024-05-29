@@ -1,0 +1,616 @@
+I want to order
+Intent FallbackIntent is fulfilled
+can i order a flower?
+What type of flowers would you like to order?
+roses
+What day do you want the roses to be picked up?
+tomorrow
+At what time do you want the roses to be picked up?
+2pm
+Okay, your roses will be ready for pickup by 14:00 on 2024-05-30. Does this sound okay?
+yes
+Intent OrderFlowers is fulfilled
+can I order again?
+What type of flowers would you like to order?
+roses on next sunday at 10pm
+What type of flowers would you like to order?
+roses on next sunday at 10pm
+What type of flowers would you like to order?
+roses
+What day do you want the roses to be picked up?
+tomorrow at 10am
+What day do you want the roses to be picked up?
+next sunday
+At what time do you want the roses to be picked up?
+after 5pm
+Okay, your roses will be ready for pickup by 17:00 on 2024-06-09. Does this sound okay?
+No
+Okay, I will not place your order.
+order pizza
+What type of flowers would you like to order?
+pizza with chicken topping.
+What type of flowers would you like to order?
+pizza
+What type of flowers would you like to order?
+what kinds of flowers you have?
+Intent FallbackIntent is fulfilled
+lillies
+What type of flowers would you like to order?
+lilies
+What day do you want the lilies to be picked up?
+1st june
+At what time do you want the lilies to be picked up?
+10:34
+At what time do you want the lilies to be picked up?
+10:34pm
+Okay, your lilies will be ready for pickup by 22:34 on 2024-06-01. Does this sound okay?
+awesome
+Okay, your lilies will be ready for pickup by 22:34 on 2024-06-01. Does this sound okay?
+cool thanks
+Okay, your lilies will be ready for pickup by 22:34 on 2024-06-01. Does this sound okay?
+yes
+Intent OrderFlowers is fulfilled
+
+
+
+Request bd6ebe6b-b97e-4348-b05c-30bc6f8947c5
+{
+ "botAliasId": "TSTALIASID",
+ "botId": "XSNMYKH5ES",
+ "localeId": "en_US",
+ "text": "I want to order",
+ "sessionId": "610591786715730"
+}
+Response
+{
+ "sessionState": {
+  "dialogAction": {
+   "type": "Close"
+  },
+  "intent": {
+   "name": "FallbackIntent",
+   "slots": {},
+   "state": "ReadyForFulfillment",
+   "confirmationState": "None"
+  },
+  "sessionAttributes": {},
+  "originatingRequestId": "bd6ebe6b-b97e-4348-b05c-30bc6f8947c5"
+ },
+ "interpretations": [
+  {
+   "intent": {
+    "name": "FallbackIntent",
+    "slots": {},
+    "state": "ReadyForFulfillment",
+    "confirmationState": "None"
+   },
+   "interpretationSource": "Lex"
+  },
+  {
+   "nluConfidence": {
+    "score": 0.71
+   },
+   "intent": {
+    "name": "OrderFlowers",
+    "slots": {
+     "FlowerType": null,
+     "PickupDate": null,
+     "PickupTime": null
+    }
+   },
+   "interpretationSource": "Lex"
+  }
+ ],
+ "sessionId": "610591786715730"
+}
+
+Request ffd27301-69fa-4c68-9aa4-20454eebb739
+{
+ "botAliasId": "TSTALIASID",
+ "botId": "XSNMYKH5ES",
+ "localeId": "en_US",
+ "text": "can i order a flower?",
+ "sessionId": "610591786715730"
+}
+Copy
+Response
+{
+ "messages": [
+  {
+   "content": "What type of flowers would you like to order?",
+   "contentType": "PlainText"
+  }
+ ],
+ "sessionState": {
+  "dialogAction": {
+   "type": "ElicitSlot",
+   "slotToElicit": "FlowerType"
+  },
+  "intent": {
+   "name": "OrderFlowers",
+   "slots": {
+    "FlowerType": null,
+    "PickupDate": null,
+    "PickupTime": null
+   },
+   "state": "InProgress",
+   "confirmationState": "None"
+  },
+  "sessionAttributes": {},
+  "originatingRequestId": "bd6ebe6b-b97e-4348-b05c-30bc6f8947c5"
+ },
+ "interpretations": [
+  {
+   "nluConfidence": {
+    "score": 0.91
+   },
+   "intent": {
+    "name": "OrderFlowers",
+    "slots": {
+     "FlowerType": null,
+     "PickupDate": null,
+     "PickupTime": null
+    },
+    "state": "InProgress",
+    "confirmationState": "None"
+   },
+   "interpretationSource": "Lex"
+  },
+  {
+   "intent": {
+    "name": "FallbackIntent",
+    "slots": {}
+   },
+   "interpretationSource": "Lex"
+  }
+ ],
+ "sessionId": "610591786715730"
+}
+Copy
+Request 7a329300-a91c-42a8-a004-e1a2b233cf1e
+{
+ "botAliasId": "TSTALIASID",
+ "botId": "XSNMYKH5ES",
+ "localeId": "en_US",
+ "text": "roses",
+ "sessionId": "610591786715730"
+}
+Copy
+Response
+{
+ "messages": [
+  {
+   "content": "What day do you want the roses to be picked up?",
+   "contentType": "PlainText"
+  }
+ ],
+ "sessionState": {
+  "dialogAction": {
+   "type": "ElicitSlot",
+   "slotToElicit": "PickupDate"
+  },
+  "intent": {
+   "name": "OrderFlowers",
+   "slots": {
+    "FlowerType": {
+     "value": {
+      "originalValue": "roses",
+      "interpretedValue": "roses",
+      "resolvedValues": [
+       "roses"
+      ]
+     }
+    },
+    "PickupDate": null,
+    "PickupTime": null
+   },
+   "state": "InProgress",
+   "confirmationState": "None"
+  },
+  "sessionAttributes": {},
+  "originatingRequestId": "bd6ebe6b-b97e-4348-b05c-30bc6f8947c5"
+ },
+ "interpretations": [
+  {
+   "nluConfidence": {
+    "score": 1
+   },
+   "intent": {
+    "name": "OrderFlowers",
+    "slots": {
+     "FlowerType": {
+      "value": {
+       "originalValue": "roses",
+       "interpretedValue": "roses",
+       "resolvedValues": [
+        "roses"
+       ]
+      }
+     },
+     "PickupDate": null,
+     "PickupTime": null
+    },
+    "state": "InProgress",
+    "confirmationState": "None"
+   },
+   "interpretationSource": "Lex"
+  },
+  {
+   "intent": {
+    "name": "FallbackIntent",
+    "slots": {}
+   },
+   "interpretationSource": "Lex"
+  }
+ ],
+ "sessionId": "610591786715730"
+}
+Copy
+Request ba4717ca-bc0a-4ca3-8aac-a62bb2a59250
+{
+ "botAliasId": "TSTALIASID",
+ "botId": "XSNMYKH5ES",
+ "localeId": "en_US",
+ "text": "tomorrow",
+ "sessionId": "610591786715730"
+}
+Copy
+Response
+{
+ "messages": [
+  {
+   "content": "At what time do you want the roses to be picked up?",
+   "contentType": "PlainText"
+  }
+ ],
+ "sessionState": {
+  "dialogAction": {
+   "type": "ElicitSlot",
+   "slotToElicit": "PickupTime"
+  },
+  "intent": {
+   "name": "OrderFlowers",
+   "slots": {
+    "FlowerType": {
+     "value": {
+      "originalValue": "roses",
+      "interpretedValue": "roses",
+      "resolvedValues": [
+       "roses"
+      ]
+     }
+    },
+    "PickupDate": {
+     "value": {
+      "originalValue": "tomorrow",
+      "interpretedValue": "2024-05-30",
+      "resolvedValues": [
+       "2024-05-30"
+      ]
+     }
+    },
+    "PickupTime": null
+   },
+   "state": "InProgress",
+   "confirmationState": "None"
+  },
+  "sessionAttributes": {},
+  "originatingRequestId": "bd6ebe6b-b97e-4348-b05c-30bc6f8947c5"
+ },
+ "interpretations": [
+  {
+   "nluConfidence": {
+    "score": 1
+   },
+   "intent": {
+    "name": "OrderFlowers",
+    "slots": {
+     "FlowerType": {
+      "value": {
+       "originalValue": "roses",
+       "interpretedValue": "roses",
+       "resolvedValues": [
+        "roses"
+       ]
+      }
+     },
+     "PickupDate": {
+      "value": {
+       "originalValue": "tomorrow",
+       "interpretedValue": "2024-05-30",
+       "resolvedValues": [
+        "2024-05-30"
+       ]
+      }
+     },
+     "PickupTime": null
+    },
+    "state": "InProgress",
+    "confirmationState": "None"
+   },
+   "interpretationSource": "Lex"
+  },
+  {
+   "intent": {
+    "name": "FallbackIntent",
+    "slots": {}
+   },
+   "interpretationSource": "Lex"
+  }
+ ],
+ "sessionId": "610591786715730"
+}
+Copy
+Request 41ed32ba-d0b3-45c1-ae6b-ad644b7e486c
+{
+ "botAliasId": "TSTALIASID",
+ "botId": "XSNMYKH5ES",
+ "localeId": "en_US",
+ "text": "2pm",
+ "sessionId": "610591786715730"
+}
+Copy
+Response
+{
+ "messages": [
+  {
+   "content": "Okay, your roses will be ready for pickup by 14:00 on 2024-05-30.  Does this sound okay?",
+   "contentType": "PlainText"
+  }
+ ],
+ "sessionState": {
+  "dialogAction": {
+   "type": "ConfirmIntent"
+  },
+  "intent": {
+   "name": "OrderFlowers",
+   "slots": {
+    "FlowerType": {
+     "value": {
+      "originalValue": "roses",
+      "interpretedValue": "roses",
+      "resolvedValues": [
+       "roses"
+      ]
+     }
+    },
+    "PickupDate": {
+     "value": {
+      "originalValue": "tomorrow",
+      "interpretedValue": "2024-05-30",
+      "resolvedValues": [
+       "2024-05-30"
+      ]
+     }
+    },
+    "PickupTime": {
+     "value": {
+      "originalValue": "2pm",
+      "interpretedValue": "14:00",
+      "resolvedValues": [
+       "14:00"
+      ]
+     }
+    }
+   },
+   "state": "InProgress",
+   "confirmationState": "None"
+  },
+  "sessionAttributes": {},
+  "originatingRequestId": "bd6ebe6b-b97e-4348-b05c-30bc6f8947c5"
+ },
+ "interpretations": [
+  {
+   "intent": {
+    "name": "OrderFlowers",
+    "slots": {
+     "FlowerType": {
+      "value": {
+       "originalValue": "roses",
+       "interpretedValue": "roses",
+       "resolvedValues": [
+        "roses"
+       ]
+      }
+     },
+     "PickupDate": {
+      "value": {
+       "originalValue": "tomorrow",
+       "interpretedValue": "2024-05-30",
+       "resolvedValues": [
+        "2024-05-30"
+       ]
+      }
+     },
+     "PickupTime": {
+      "value": {
+       "originalValue": "2pm",
+       "interpretedValue": "14:00",
+       "resolvedValues": [
+        "14:00"
+       ]
+      }
+     }
+    },
+    "state": "InProgress",
+    "confirmationState": "None"
+   },
+   "interpretationSource": "Lex"
+  },
+  {
+   "intent": {
+    "name": "FallbackIntent",
+    "slots": {}
+   },
+   "interpretationSource": "Lex"
+  }
+ ],
+ "sessionId": "610591786715730"
+}
+Copy
+Request e2631b53-36ec-429d-bce7-03056d74a324
+{
+ "botAliasId": "TSTALIASID",
+ "botId": "XSNMYKH5ES",
+ "localeId": "en_US",
+ "text": "yes",
+ "sessionId": "610591786715730"
+}
+Copy
+Response
+{
+ "sessionState": {
+  "dialogAction": {
+   "type": "Close"
+  },
+  "intent": {
+   "name": "OrderFlowers",
+   "slots": {
+    "FlowerType": {
+     "value": {
+      "originalValue": "roses",
+      "interpretedValue": "roses",
+      "resolvedValues": [
+       "roses"
+      ]
+     }
+    },
+    "PickupDate": {
+     "value": {
+      "originalValue": "tomorrow",
+      "interpretedValue": "2024-05-30",
+      "resolvedValues": [
+       "2024-05-30"
+      ]
+     }
+    },
+    "PickupTime": {
+     "value": {
+      "originalValue": "2pm",
+      "interpretedValue": "14:00",
+      "resolvedValues": [
+       "14:00"
+      ]
+     }
+    }
+   },
+   "state": "ReadyForFulfillment",
+   "confirmationState": "Confirmed"
+  },
+  "sessionAttributes": {},
+  "originatingRequestId": "bd6ebe6b-b97e-4348-b05c-30bc6f8947c5"
+ },
+ "interpretations": [
+  {
+   "nluConfidence": {
+    "score": 1
+   },
+   "intent": {
+    "name": "OrderFlowers",
+    "slots": {
+     "FlowerType": {
+      "value": {
+       "originalValue": "roses",
+       "interpretedValue": "roses",
+       "resolvedValues": [
+        "roses"
+       ]
+      }
+     },
+     "PickupDate": {
+      "value": {
+       "originalValue": "tomorrow",
+       "interpretedValue": "2024-05-30",
+       "resolvedValues": [
+        "2024-05-30"
+       ]
+      }
+     },
+     "PickupTime": {
+      "value": {
+       "originalValue": "2pm",
+       "interpretedValue": "14:00",
+       "resolvedValues": [
+        "14:00"
+       ]
+      }
+     }
+    },
+    "state": "ReadyForFulfillment",
+    "confirmationState": "Confirmed"
+   },
+   "interpretationSource": "Lex"
+  },
+  {
+   "intent": {
+    "name": "FallbackIntent",
+    "slots": {}
+   },
+   "interpretationSource": "Lex"
+  }
+ ],
+ "sessionId": "610591786715730"
+}
+Copy
+Request d5c0ac34-0d8b-46e9-8706-f29a5216c6f8
+{
+ "botAliasId": "TSTALIASID",
+ "botId": "XSNMYKH5ES",
+ "localeId": "en_US",
+ "text": "can I order again?",
+ "sessionId": "610591786715730"
+}
+Copy
+Response
+{
+ "messages": [
+  {
+   "content": "What type of flowers would you like to order?",
+   "contentType": "PlainText"
+  }
+ ],
+ "sessionState": {
+  "dialogAction": {
+   "type": "ElicitSlot",
+   "slotToElicit": "FlowerType"
+  },
+  "intent": {
+   "name": "OrderFlowers",
+   "slots": {
+    "FlowerType": null,
+    "PickupDate": null,
+    "PickupTime": null
+   },
+   "state": "InProgress",
+   "confirmationState": "None"
+  },
+  "sessionAttributes": {},
+  "originatingRequestId": "bd6ebe6b-b97e-4348-b05c-30bc6f8947c5"
+ },
+ "interpretations": [
+  {
+   "nluConfidence": {
+    "score": 0.74
+   },
+   "intent": {
+    "name": "OrderFlowers",
+    "slots": {
+     "FlowerType": null,
+     "PickupDate": null,
+     "PickupTime": null
+    },
+    "state": "InProgress",
+    "confirmationState": "None"
+   },
+   "interpretationSource": "Lex"
+  },
+  {
+   "intent": {
+    "name": "FallbackIntent",
+    "slots": {}
+   },
+   "interpretationSource": "Lex"
+  }
+ ],
+ "sessionId": "610591786715730"
+}

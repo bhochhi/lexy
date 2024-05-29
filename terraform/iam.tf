@@ -1,31 +1,3 @@
-provider "aws" {
-  region = var.region
-}
-
-resource "aws_lex_bot" "my_lexy" {
-  name        = "MyLexyBot"
-  description = "A bot for handling financial service inquiries"
-  intents     = [ for intent in local.intents : {
-    intent_name       = intent.name
-    intent_version    = "$LATEST"
-  }]
-}
-
-resource "null_resource" "upload_intents" {
-  provisioner "local-exec" {
-    command = "go run ${path.module}/../scripts/upload_intents.go"
-    environment = {
-      AWS_REGION = var.region
-      AWS_ACCESS_KEY_ID = var.aws_access_key_id
-      AWS_SECRET_ACCESS_KEY = var.aws_secret_access_key
-    }
-  }
-
-  triggers = {
-    intents_hash = filebase64sha256("${path.module}/../data/intents.json")
-  }
-}
-
 resource "aws_iam_role" "lex_execution_role" {
   name = "lex_execution_role"
 
@@ -49,7 +21,7 @@ resource "aws_iam_policy" "lex_policy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Effect = "Allow",
+        Effect = "Allow"
         Action = [
           "lex:PutIntent",
           "lex:CreateBotVersion",

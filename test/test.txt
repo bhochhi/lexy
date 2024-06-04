@@ -80,3 +80,27 @@ Intent OrderFlowers is fulfilled
 
 
 
+
+
+
+
+Show me my {AccountType} accounts.
+Can you display my {AccountType} account details?
+I want to see my {AccountType} .
+Give me a list of my {AccountType} accounts.
+What are my {AccountType} account balances?
+Display my {AccountType} accounts.
+Show my {AccountType} accounts.
+List my {AccountType} accounts.
+How much is in my {AccountType} ?
+Provide the details of my {AccountType} .
+What do I have in my {AccountType} accounts?
+Fetch my {AccountType} details.
+I need to see my {AccountType} account.
+Can you show my {AccountType} ?
+What is my {AccountType} balance?
+List all my {AccountType} accounts.
+How many {AccountType} accounts do I have?
+Give me information on my {AccountType} .
+Show me the details of my {AccountType} .
+I want to know about my {AccountType} .

@@ -72,7 +72,7 @@ Each intent within the bot is designed to handle specific tasks or responses, an
 
 
 ### multi context/intent conversation
-- Easy
+- Simple... need to work.
 
 
 #### Intent example
@@ -167,7 +167,7 @@ Imagine a financial chatbot:
 3. **Production**:
    - Once validated, update `prod` alias to Version 1.3.
 
-Using aliases, you manage and deploy different versions of your bot effectively, ensuring seamless transitions and consistent integrations.
+U
 
 ## Resources:
 - [How to approach conversation design: The basics (Part 1)](https://aws.amazon.com/blogs/machine-learning/part-1-approach-conversation-design-the-basics/)
@@ -177,3 +177,6 @@ Using aliases, you manage and deploy different versions of your bot effectively,
 - [Amazon Lex Model Building Service](https://docs.aws.amazon.com/lex/latest/dg/API_Operations_Amazon_Lex_Model_Building_Service.html)
 - [Cost and Pricing](https://aws.amazon.com/lex/pricing/)
 - [How it works](https://docs.aws.amazon.com/lexv2/latest/dg/how-it-works.html)
+- [Amazon Lex V2 API Reference](https://docs.aws.amazon.com/lexv2/latest/APIReference/welcome.html)
+
+- [Add an Amazon Lex bot to Amazon Connect](https://docs.aws.amazon.com/connect/latest/adminguide/amazon-lex.html)

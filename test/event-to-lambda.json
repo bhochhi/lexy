@@ -1,0 +1,48 @@
+{
+    "inputMode": "Text",
+    "sessionId": "610591786715987",
+    "inputTranscript": "checking",
+    "interpretations": [
+      { "interpretationSource": "Lex", nluConfidence: 1, intent: [Object] },
+      { "interpretationSource": "Lex", intent: [Object] },
+      {
+        "interpretationSource": "Lex",
+        "nluConfidence": 0.43,
+        "intent": [Object]
+      },
+      {
+        interpretationSource: "Lex",
+        nluConfidence: 0.42,
+        intent: [Object]
+      }
+    ],
+    bot: {
+      name: "all-in-one",
+      version: "DRAFT",
+      localeId: "en_US",
+      id: "VKKIFWLLLZ",
+      aliasId: "TSTALIASID",
+      aliasName: "TestBotAlias"
+    },
+    responseContentType: "text/plain; charset=utf-8",
+    sessionState: {
+      originatingRequestId: "f798e2b0-43b5-4624-b3b8-7bb6d23850ea",
+      sessionAttributes: {},
+      intent: {
+        name: "MyAccounts",
+        slots: [Object],
+        state: "ReadyForFulfillment",
+        confirmationState: "None"
+      }
+    },
+    messageVersion: "1.0",
+    invocationSource: "FulfillmentCodeHook",
+    transcriptions: [
+      {
+        resolvedContext: [Object],
+        resolvedSlots: [Object],
+        transcriptionConfidence: 1,
+        transcription: "checking"
+      }
+    ]
+  }

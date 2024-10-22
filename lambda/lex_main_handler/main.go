@@ -30,16 +30,16 @@ func handleRequest(ctx context.Context, request events.LexEvent) (LexResponse, e
 	fmt.Printf("Hello Request: %+v\n", request)
 	// Default response for unhandled intents
 	return LexResponse{
-		SessionAttributes: request.SessionAttributes,
-		DialogAction: LexDialogAction{
-			Type:             "Close",
-			FulfillmentState: "Failed",
-			Message: &LexDialogActionMessage{
-				ContentType: "PlainText",
-				Content:     "Sorry, I didn't understand that. Can you please repeat?",
-			},
-		},
-	}, nil
+    	SessionAttributes: request.SessionAttributes,
+    	DialogAction: LexDialogAction{
+    		Type:             "Close",
+    		FulfillmentState: "Fulfilled",
+    		Message: &LexDialogActionMessage{
+    			ContentType: "PlainText",
+    			Content:     "Thank you for using our service.",
+    		},
+    	},
+    }, nil
 }
 
 func main() {

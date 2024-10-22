@@ -1,8 +1,4 @@
 
-provider "aws" {
-  region = var.aws_region
-}
-
 locals {
   bot_name = "${var.project_name}_${var.environment}_${var.branch_suffix}"
   bot_alias = "${local.bot_name}_latest"
@@ -16,10 +12,11 @@ module "iam" {
 
 module "lex" {
   source = "./modules/lex"
-  lex_bot_name = "${local.bot_name}"
-  lex_bot_alias = "${local.bot_alias}"
+  lex_bot_name = local.bot_name
+  lex_bot_alias = local.bot_alias
+  environment = var.environment
   lambda_arn = module.lambdas.lex_main_handler_arn
-  # lambda_arn    = module.lambdas.lambda_arn
+  lambda_function_name = module.lambdas.function_name
   depends_on    = [module.lambdas]
 }
 

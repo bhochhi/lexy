@@ -32,6 +32,7 @@ variable "branch_suffix" {
 variable "environment" {
   description = "Deployment environment"
   type        = string
+  default     = "dev"
 }
 
 variable "bot_purpose" {

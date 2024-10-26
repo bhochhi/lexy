@@ -1,0 +1,29 @@
+{
+  "name": "ContactUs",
+  "description": "Intent for contacting specific departments",
+  "sample_utterances": [
+    "I want to contact someone",
+    "Contact department",
+    "Get in touch with support",
+    "Contact us"
+  ],
+  "slots": [
+    {
+      "name": "Department",
+      "description": "Department name",
+      "slot_type_id": "AMAZON.AlphaNumeric",
+      "prompt": "Which department would you like to contact?"
+    }
+  ],
+  "fulfillment_code_hook": {
+    "enabled": true,
+    "success_response": "I've forwarded your request to the {Department} department. They will contact you soon.",
+    "failure_response": "I'm sorry, I couldn't process your request at this time. Please try again later."
+  },
+  "slot_priorities": [
+    {
+      "slot_name": "Department",
+      "priority": 1
+    }
+  ]
+}

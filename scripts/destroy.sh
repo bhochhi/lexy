@@ -37,11 +37,11 @@ echo "  Branch: $BRANCH_NAME"
 echo ""
 
 # Ask for confirmation
-read -p "Are you sure you want to destroy these resources? (type 'yes' to confirm): " confirmation
-if [ "$confirmation" != "yes" ]; then
-    echo "Destruction cancelled."
-    exit 0
-fi
+#read -p "Are you sure you want to destroy these resources? (type 'yes' to confirm): " confirmation
+#if [ "$confirmation" != "yes" ]; then
+#    echo "Destruction cancelled."
+#    exit 0
+#fi
 
 # Navigate to the Terraform directory
 cd terraform
@@ -64,7 +64,7 @@ fi
 
 # Apply the destruction
 echo "Applying destruction..."
-terraform apply tfplan
+terraform apply -auto-approve tfplan
 
 # Clean up the plan file
 echo "Cleaning up..."

@@ -18,17 +18,21 @@ resource "aws_lexv2models_bot" "chatbot" {
 
 resource "aws_lexv2models_bot_locale" "bot_locale" {
   bot_id      = aws_lexv2models_bot.chatbot.id
+  # bot_version = aws_lexv2models_bot_version.bot_version.bot_version
   bot_version = "DRAFT"
   locale_id   = "en_US"
   description = "English US locale for ${var.lex_bot_name}"
 
   n_lu_intent_confidence_threshold = 0.40
+  depends_on = [aws_lexv2models_bot.chatbot]
+
 }
 
 
 # Create a bot version
 resource "aws_lexv2models_bot_version" "bot_version" {
   bot_id = aws_lexv2models_bot.chatbot.id
+
   locale_specification = {
     "en_US" = {
         source_bot_version = "DRAFT"
@@ -36,22 +40,6 @@ resource "aws_lexv2models_bot_version" "bot_version" {
   }
 
   description = "Version for ${var.environment}"
+    depends_on = [aws_lexv2models_bot_locale.bot_locale]
 
-  # Make sure both locale and intent are created before creating version
-  depends_on = [
-    aws_lexv2models_bot_locale.bot_locale,
-    module.intents
-  ]
 }
-
-
-
-# Call the intents module
-module "intents" {
-  source = "./intents"
-
-  bot_id        = aws_lexv2models_bot.chatbot.id
-  bot_version   = "DRAFT"
-  locale_id     = aws_lexv2models_bot_locale.bot_locale.locale_id
-}
-

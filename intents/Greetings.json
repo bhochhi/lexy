@@ -1,0 +1,16 @@
+{
+  "name": "Greetings",
+  "description": "Intent for greeting",
+  "sample_utterances": [
+    "Hello",
+    "Hi",
+    "Good morning"
+  ],
+  "closing_responses": {
+    "main_message": "Hi there! How can I help you?",
+    "variations": [
+      "Hello! How can I assist you today?",
+      "Good morning! How can I help you?"
+    ]
+  }
+}

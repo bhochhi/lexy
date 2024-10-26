@@ -16,7 +16,17 @@ resource "aws_lexv2models_slot" "slots" {
   bot_version  = "DRAFT"
   locale_id    = aws_lexv2models_bot_locale.bot_locale.locale_id
   intent_id    = split(":", aws_lexv2models_intent.intents[each.value.intent_name].id)[0]
+
+
+
+
   value_elicitation_setting {
+    default_value_specification {
+        default_value_list {
+          default_value = "Bank"
+        }
+
+    }
     slot_constraint = "Required"
     prompt_specification {
       allow_interrupt            = true
@@ -30,6 +40,9 @@ resource "aws_lexv2models_slot" "slots" {
           }
         }
       }
+
+
+
 
       prompt_attempts_specification {
         allow_interrupt = true
@@ -91,6 +104,9 @@ resource "aws_lexv2models_slot" "slots" {
         }
       }
 
+
+
     }
   }
+
 }

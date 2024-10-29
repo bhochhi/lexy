@@ -14,7 +14,17 @@ output "bot_arn" {
   value       = aws_lexv2models_bot.chatbot.arn
 }
 
-output "bot_version" {
-  description = "The version of the bot"
-  value       = aws_lexv2models_bot_version.bot_version.bot_version
+
+output "all_intent_ids" {
+  description = "Map of all intent IDs"
+  value       = {for k, v in aws_lexv2models_intent.intents : k => v.id}
+}
+
+output "intents_debug" {
+  description = "Debug output for intents"
+  value       = local.intents
+}
+
+output "root_path" {
+  value = path.root
 }

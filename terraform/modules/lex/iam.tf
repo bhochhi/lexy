@@ -49,5 +49,4 @@ resource "aws_lambda_permission" "lex_permission" {
   action        = "lambda:InvokeFunction"
   function_name = split(":", each.value)[6]  # Extract function name from ARN
   principal     = "lexv2.amazonaws.com"
-  source_arn    = "${aws_lexv2models_bot.chatbot.arn}/versions/${aws_lexv2models_bot_version.bot_version.bot_version}"
 }

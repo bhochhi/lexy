@@ -73,4 +73,4 @@ rm tfplan
 echo "🗑️  Destruction completed"
 echo "  Environment: $ENV"
 echo "  AWS Profile: $AWS_PROFILE"
-echo "  Branch: $
+echo "  Branch: $BRANCH_NAME"

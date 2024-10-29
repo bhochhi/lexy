@@ -12,6 +12,7 @@
   - generate the report of the test.
   - upload to qTest. 
 - preemptive chat. with link, start the conversation from midway
+- bot version, alias and project version.. how to keep align
 
 
 

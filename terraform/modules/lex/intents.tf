@@ -3,8 +3,7 @@ resource "aws_lexv2models_intent" "intents" {
   name        = each.value.name
   description = each.value.description
   bot_id      = aws_lexv2models_bot.chatbot.id
-  bot_version = "DRAFT"
-  # bot_version = aws_lexv2models_bot_version.bot_version.bot_id
+  bot_version = var.lex_bot_version
   locale_id   = aws_lexv2models_bot_locale.bot_locale.locale_id
 
   dynamic "sample_utterance" {
@@ -13,7 +12,6 @@ resource "aws_lexv2models_intent" "intents" {
       utterance = sample_utterance.value
     }
   }
-
 
   dynamic "fulfillment_code_hook" {
     for_each = lookup(each.value, "fulfillment_code_hook", null) != null ? [each.value.fulfillment_code_hook] : []
@@ -67,51 +65,8 @@ resource "aws_lexv2models_intent" "intents" {
     }
   }
 
-  # dynamic "slot_priority" {
-  #   for_each = each.value.slot_priorities
-  #   content {
-  #     slot_id = aws_lexv2models_slot.slots[each.key].id
-  #     slot_name = slot_priority.value.slot_name
-  #     priority  = slot_priority.value.priority
-  #   }
-  # }
-
   depends_on = [
     aws_lexv2models_bot.chatbot,
-    aws_lexv2models_bot_version.bot_version,
     aws_lexv2models_bot_locale.bot_locale
   ]
-}
-
-
-//this is to break the cyclic dependency between slots and intents.
-# resource "aws_lexv2models_intent" "intent_slot_priorities" {
-#   for_each    = local.intents
-#   name        = each.value.name
-#   description = each.value.description
-#   bot_id      = aws_lexv2models_bot.chatbot.id
-#   bot_version = "DRAFT"
-#   locale_id   = aws_lexv2models_bot_locale.bot_locale.locale_id
-#
-#   dynamic "slot_priority" {
-#     for_each = each.value.slot_priorities
-#     content {
-#       slot_id   = aws_lexv2models_slot.slots[each.key].id
-#       priority  = slot_priority.value.priority
-#     }
-#   }
-#
-#   depends_on = [
-#     aws_lexv2models_slot.slots
-#   ]
-# }
-
-output "all_intent_ids" {
-  description = "Map of all intent IDs"
-  value       = {for k, v in aws_lexv2models_intent.intents : k => v.id}
-}
-
-output "intents_debug" {
-  description = "Debug output for intents"
-  value       = local.intents
 }

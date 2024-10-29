@@ -18,8 +18,7 @@ resource "aws_lexv2models_bot" "chatbot" {
 
 resource "aws_lexv2models_bot_locale" "bot_locale" {
   bot_id      = aws_lexv2models_bot.chatbot.id
-  # bot_version = aws_lexv2models_bot_version.bot_version.bot_version
-  bot_version = "DRAFT"
+  bot_version = var.lex_bot_version
   locale_id   = "en_US"
   description = "English US locale for ${var.lex_bot_name}"
 
@@ -30,16 +29,34 @@ resource "aws_lexv2models_bot_locale" "bot_locale" {
 
 
 # Create a bot version
-resource "aws_lexv2models_bot_version" "bot_version" {
-  bot_id = aws_lexv2models_bot.chatbot.id
+# resource "aws_lexv2models_bot_version" "bot_version" {
+#   bot_id = aws_lexv2models_bot.chatbot.id
+#
+#   locale_specification = {
+#     "en_US" = {
+#         source_bot_version = var.lex_bot_version
+#     }
+#   }
+#
+#   description = "Version for ${var.environment}"
+#     depends_on = [aws_lexv2models_bot_locale.bot_locale]
+#
+# }
 
-  locale_specification = {
-    "en_US" = {
-        source_bot_version = "DRAFT"
-    }
+
+
+//create resource to run the build command for lex model so that you can send the user input to lex model
+resource "null_resource" "build_lex_model" {
+  triggers = {
+    always_run = timestamp()
   }
 
-  description = "Version for ${var.environment}"
-    depends_on = [aws_lexv2models_bot_locale.bot_locale]
-
+  provisioner "local-exec" {
+    command = "${path.module}/../../../scripts/build_model.sh ${aws_lexv2models_bot.chatbot.id} ${aws_lexv2models_bot_locale.bot_locale.locale_id} ${var.lex_bot_version}"
+  }
+  depends_on = [
+    aws_lexv2models_bot_locale.bot_locale,
+    aws_lexv2models_intent.intents
+    # aws_lexv2models_slot.slots
+  ]
 }

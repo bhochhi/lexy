@@ -46,7 +46,6 @@ terraform plan -var-file="../$TF_VAR_file" -var="branch_suffix=$BRANCH_SUFFIX" -
 # Apply the changes
 echo "Applying changes..."
 terraform apply tfplan
-
 # Clean up the plan file
 echo "Cleaning up..."
 rm tfplan

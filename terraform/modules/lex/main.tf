@@ -41,6 +41,7 @@ resource "null_resource" "build_lex_model" {
   depends_on = [
     aws_lexv2models_bot_locale.bot_locale,
     aws_lexv2models_intent.intents,
-    aws_lexv2models_slot.slots
+    aws_lexv2models_slot.slots,
+    null_resource.update_intent_slot_priority
   ]
 }

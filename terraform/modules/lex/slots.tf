@@ -1,13 +1,13 @@
 resource "aws_lexv2models_slot" "slots" {
-  for_each = { for slot in local.slots_map : slot.intent_name => slot }
+  for_each = { for slot in local.slots_map : slot.name => slot }
 
   name         = each.value.name
+  bot_id       = aws_lexv2models_bot.chatbot.id
   description  = each.value.description
   slot_type_id = each.value.slot_type_id
-  bot_id       = aws_lexv2models_bot.chatbot.id
   bot_version  = var.lex_bot_version
   locale_id    = aws_lexv2models_bot_locale.bot_locale.locale_id
-  intent_id    = split(":",aws_lexv2models_intent.intents[each.key].id)[0]
+  intent_id    = split(":",aws_lexv2models_intent.intents[each.value.intent_name].id)[0]
 
   value_elicitation_setting {
     default_value_specification {
@@ -97,3 +97,8 @@ resource "aws_lexv2models_slot" "slots" {
 
 }
 
+//out all the slots
+output "all_slot_ids" {
+  description = "Map of all slot IDs"
+  value       = {for k, v in aws_lexv2models_slot.slots : k => v.id}
+}

@@ -28,22 +28,6 @@ resource "aws_lexv2models_bot_locale" "bot_locale" {
 }
 
 
-# Create a bot version
-# resource "aws_lexv2models_bot_version" "bot_version" {
-#   bot_id = aws_lexv2models_bot.chatbot.id
-#
-#   locale_specification = {
-#     "en_US" = {
-#         source_bot_version = var.lex_bot_version
-#     }
-#   }
-#
-#   description = "Version for ${var.environment}"
-#     depends_on = [aws_lexv2models_bot_locale.bot_locale]
-#
-# }
-
-
 
 //create resource to run the build command for lex model so that you can send the user input to lex model
 resource "null_resource" "build_lex_model" {
@@ -56,7 +40,7 @@ resource "null_resource" "build_lex_model" {
   }
   depends_on = [
     aws_lexv2models_bot_locale.bot_locale,
-    aws_lexv2models_intent.intents
-    # aws_lexv2models_slot.slots
+    aws_lexv2models_intent.intents,
+    aws_lexv2models_slot.slots
   ]
 }

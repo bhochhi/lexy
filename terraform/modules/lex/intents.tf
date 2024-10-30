@@ -1,3 +1,5 @@
+
+
 resource "aws_lexv2models_intent" "intents" {
   for_each    = local.intents
   name        = each.value.name
@@ -12,6 +14,24 @@ resource "aws_lexv2models_intent" "intents" {
       utterance = sample_utterance.value
     }
   }
+
+  # dynamic "slot_priority" {
+  #   for_each = lookup(each.value, "slot_priorities", [])
+  #   content {
+  #     priority = slot_priority.value.priority
+  #     slot_id  = local.slot_ids["${each.value.intent_name}-${slot_priority.value.slot_name}"]
+  #   }
+  # }
+
+
+  # dynamic "slot_priority" {
+  #   for_each = lookup(each.value, "slot_priorities", [])
+  #   content {
+  #     priority = slot_priority.value.priority
+  #     slot_id  = aws_lexv2models_slot.slots[each.value.intent_name].id
+  #   }
+  # }
+
 
   dynamic "fulfillment_code_hook" {
     for_each = lookup(each.value, "fulfillment_code_hook", null) != null ? [each.value.fulfillment_code_hook] : []

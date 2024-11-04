@@ -124,3 +124,26 @@ terraform init
 
 
 ## License
+
+
+
+## Key Learning Objectives
+1. **Resource Management**
+  - How to organize bot resources effectively
+  - When to create new versions vs updates
+  - How to manage environments
+
+2. **Conversation Design**
+  - How to implement complex dialogs
+  - When to use different dialog management features
+  - How to handle edge cases
+
+3. **Testing**
+  - How to ensure conversation quality
+  - When to use different testing approaches
+  - How to automate testing
+
+4. **Production**
+  - How to deploy safely
+  - When to update bot versions
+  - How to monitor and maintain

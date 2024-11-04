@@ -1,114 +1,120 @@
-### Resource Management
-1. **Resource Organization**
-    - How to separate utterances from intent logic
-    - Where to store response templates
-    - Managing slot values and synonyms
-    - Best practices for organizing Lambda functions
+# AWS Lex Advanced Training - Practical Guide
 
-2. **Version Control Strategy**
-    - When to create new bot versions
-    - When to update existing versions
-    - How to manage breaking changes
-    - Strategy for development/staging/production
+## 1. Resource Management
+### Code Organization
+- How to organize bot resources between code and data
+   - Separating utterances from intent logic
+   - Managing response templates
+   - Organizing slot values and synonyms
+   - Structuring Lambda functions
 
-3. **Alias Management**
-    - Using aliases for environment management
-    - Blue-green deployment strategy
-    - How to handle rollbacks
-    - Testing new versions safely
+- How to implement effective versioning strategy
+   - When to create new versions vs updates
+   - Managing development/staging/production environments
+   - Handling version conflicts
+   - Implementing rollback procedures
 
-### Basic Dialog Management
-1. **Dialog State Control**
-    - When to use ElicitSlot vs Delegate
-    - How to implement slot validation
-    - Managing slot dependencies
-    - Handling slot updates
+- How to manage complex dialog flows
+   - Implementing conditional branches
+   - Managing context between intents
+   - Handling long-running conversations
+   - Implementing error recovery paths
 
-2. **Branching Logic**
-    - How to implement if/else in conversations
-    - When to switch intents
-    - Managing dialog context during branches
-    - Handling unexpected user responses
+### Session Management
+- How to effectively use session attributes
+   - Deciding what data belongs in session
+   - Sharing data between intents
+   - Cleaning up session data
+   - Managing session timeouts
 
-3. **Session Management**
-    - What data belongs in session attributes
-    - How long to retain session data
-    - Cleaning up session attributes
-    - Sharing data between intents
+- How to implement context switching
+   - Maintaining conversation state
+   - Handling intent transitions
+   - Managing dialog context
+   - Implementing fallback logic
 
-### Advanced Dialog Features
-1. **Multi-turn Conversations**
-    - Managing conversation state
-    - Implementing context switching
-    - Handling timeout scenarios
-    - Resuming interrupted conversations
+## 2. Testing Strategy
+### Local Testing
+- How to set up local testing environment
+   - Configuring local Lex container
+   - Setting up mock Lambda responses
+   - Managing test data
+   - Implementing test runners
 
-2. **Proactive Features**
-    - When to use preemptive prompts
-    - How to suggest next actions
-    - Managing conversation initiative
-    - Balancing user experience
+- How to write effective unit tests
+   - Testing slot validation
+   - Testing intent fulfillment
+   - Testing response generation
+   - Testing error scenarios
 
-### Test Strategy and Automation
-1. **Unit Testing Approach**
-    - Testing slot validation
-    - Testing intent fulfillment
-    - Testing session management
-    - Testing response generation
+### Automated Testing
+- How to implement integration tests
+   - Testing complete conversation flows
+   - Testing context switching
+   - Testing error recovery
+   - Validating business logic
 
-2. **Integration Testing**
-    - Testing full conversation flows
-    - Testing intent switching
-    - Testing error scenarios
-    - Testing timeout handling
+- How to set up CI/CD pipeline
+   - Automating test execution
+   - Managing test environments
+   - Generating test reports
+   - Tracking test coverage
 
-3. **Performance Testing**
-    - Testing response times
-    - Testing concurrent conversations
-    - Testing session management at scale
-    - Testing error recovery
+## 3. Observability
+### Monitoring
+- How to implement effective logging
+   - Structuring log data
+   - Setting up log levels
+   - Implementing correlation IDs
+   - Managing log retention
 
-4. **Test Infrastructure**
-    - Setting up test environments
-    - Managing test data
-    - Implementing test runners
-    - Generating test reports
+- How to set up monitoring
+   - Identifying key metrics
+   - Setting up dashboards
+   - Configuring alerts
+   - Tracking performance metrics
 
-5. **CI/CD Integration**
-    - Automating test execution
-    - Managing test environments
-    - Handling test failures
-    - Tracking test coverage
+### Troubleshooting
+- How to implement error tracking
+   - Capturing error details
+   - Implementing error classification
+   - Setting up error alerts
+   - Managing error recovery
 
-### Deployment Strategy
-1. **Infrastructure Management**
-    - Resource provisioning approach
-    - Environment promotion strategy
-    - Configuration management
-    - Security implementation
+- How to analyze conversation quality
+   - Tracking success rates
+   - Measuring user satisfaction
+   - Identifying common failures
+   - Implementing improvements
 
-2. **Release Management**
-    - Deployment automation
-    - Rollback procedures
-    - Version control strategy
-    - Change management process
+## Key Learning Outcomes
+1. Set up maintainable bot architecture
+   - Clean separation of concerns
+   - Effective version control
+   - Robust error handling
 
-### Operations
-1. **Monitoring & Alerts**
-    - What metrics to track
-    - How to set up alerting
-    - Log management strategy
-    - Performance monitoring
+2. Implement comprehensive testing
+   - Local development workflow
+   - Automated testing pipeline
+   - Quality assurance process
 
-2. **Maintenance**
-    - Bot content updates
-    - Model retraining strategy
-    - Backup and recovery
-    - Scaling approach
+3. Monitor and maintain production bots
+   - Performance monitoring
+   - Error tracking
+   - Quality improvements
 
+## Hands-on Exercises
+1. Resource Management Exercise
+   - Set up project structure
+   - Implement version control
+   - Create dialog management
 
-## Discussion Topics
-1. How do you balance flexibility vs complexity in dialog management?
-2. What are the trade-offs between different testing approaches?
-3. How do you handle versioning for different components (bot, intent, lambda)?
-4. What metrics best indicate bot performance and user satisfaction?
+2. Testing Exercise
+   - Set up local environment
+   - Write test cases
+   - Implement CI/CD
+
+3. Monitoring Exercise
+   - Configure logging
+   - Set up dashboards
+   - Implement alerts

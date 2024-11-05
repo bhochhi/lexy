@@ -31,7 +31,7 @@ resource "aws_lexv2models_intent" "welcome" {
 
   depends_on = [
     aws_lexv2models_bot.chatbot,
-    aws_lexv2models_bot_version.bot_version,
+    # aws_lexv2models_bot_version.bot_version,
     aws_lexv2models_bot_locale.bot_locale
   ]
 }

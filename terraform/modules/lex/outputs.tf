@@ -14,7 +14,7 @@ output "bot_arn" {
   value       = aws_lexv2models_bot.chatbot.arn
 }
 
-output "bot_version" {
-  description = "The version of the bot"
-  value       = aws_lexv2models_bot_version.bot_version.bot_version
-}
+# output "bot_version" {
+#   description = "The version of the bot"
+#   value       = aws_lexv2models_bot_version.bot_version.bot_version
+# }

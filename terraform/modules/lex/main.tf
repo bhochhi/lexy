@@ -28,18 +28,18 @@ resource "aws_lexv2models_bot_locale" "bot_locale" {
 
 }
 
-
-# Create a bot version
-resource "aws_lexv2models_bot_version" "bot_version" {
-  bot_id = aws_lexv2models_bot.chatbot.id
-
-  locale_specification = {
-    "en_US" = {
-      source_bot_version = "DRAFT"
-    }
-  }
-
-  description = "Version for ${var.environment}"
-  depends_on = [aws_lexv2models_bot_locale.bot_locale]
-
-}
+#
+# # Create a bot version
+# resource "aws_lexv2models_bot_version" "bot_version" {
+#   bot_id = aws_lexv2models_bot.chatbot.id
+#
+#   locale_specification = {
+#     "en_US" = {
+#       source_bot_version = var.lex_bot_version
+#     }
+#   }
+#
+#   description = "Version for ${var.environment}"
+#   depends_on = [aws_lexv2models_bot_locale.bot_locale]
+#
+# }

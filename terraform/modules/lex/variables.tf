@@ -13,13 +13,13 @@ variable "lex_bot_name" {
   type        = string
 }
 
-variable "lex_bot_alias" {
-  description = "The alias of the Lex bot"
-  type        = string
-}
+# variable "lex_bot_alias" {
+#   description = "The alias of the Lex bot"
+#   type        = string
+# }
 
-variable "lex_bot_version" {
-  description = "The version of the Lex bot"
-  type        = string
-  default     = "DRAFT"
-}
+# variable "lex_bot_version" {
+#   description = "The version of the Lex bot"
+#   type        = string
+#   default     = "DRAFT"
+# }

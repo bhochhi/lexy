@@ -1,0 +1,29 @@
+#!/bin/bash
+
+BOT_ID=$1
+LOCALE_ID=$2
+BOT_VERSION="DRAFT"
+
+COUNT=0
+MAX_RETRIES=40  # Increased the maximum retries to allow more time for the build process
+
+  response=$(aws lexv2-models build-bot-locale --bot-id "$BOT_ID" --bot-version "$BOT_VERSION" --locale-id "$LOCALE_ID")
+  status=$(echo "$response" | jq -r '.botLocaleStatus')
+while true; do
+  sleep 10
+  status=$(echo "$response" | jq -r '.botLocaleStatus')
+  if [ "$status" == "Failed" ]; then
+    echo "Build failed with status: \n$response"
+    exit 1
+  elif [ "$status" == "Ready" ] || [ "$status" == "Built" ]; then
+    echo "Build succeeded with status: \n$response"
+    exit 0
+  elif [ "$COUNT" -gt $MAX_RETRIES ]; then
+    echo "Build timed out with status: \n$response"
+    exit 1
+  else
+    echo "Build in progress with status: $status"
+    COUNT=$((COUNT+1))
+  fi
+ response=$(aws lexv2-models describe-bot-locale --bot-id "$BOT_ID" --bot-version "$BOT_VERSION" --locale-id "$LOCALE_ID")
+done

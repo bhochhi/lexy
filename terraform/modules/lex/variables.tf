@@ -13,6 +13,12 @@ variable "lex_bot_name" {
   type        = string
 }
 
+variable "aws_region" {
+  description = "The AWS region to deploy resources into"
+  type        = string
+  default     = "us-east-1"
+}
+
 # variable "lex_bot_alias" {
 #   description = "The alias of the Lex bot"
 #   type        = string

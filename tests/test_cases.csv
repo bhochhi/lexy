@@ -1,0 +1,5 @@
+testCaseId,intent,utterance,response,slots,promptName
+welcome_basic_1,Welcome,hello,Hi there I am a bot. How can I help you today?,,WelcomePrompt
+welcome_basic_2,Welcome,hi there,Hi there I am a bot. How can I help you today?,,WelcomePrompt
+welcome_basic_3,FallbackIntent,blablabla,NO_MESSAGE,,WelcomePrompt
+welcome_basic_4,Welcome,hey,Hi there I am a bot. How can I help you today?,,WelcomePrompt

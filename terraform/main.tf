@@ -15,5 +15,6 @@ module "lex" {
   lex_bot_name = local.bot_name
   # lex_bot_alias = local.bot_alias
   environment = var.environment
+  aws_region = var.aws_region
 }
 

@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Exit on any error
+set -e
+cd terraform
+
 # Validate the Terraform configuration
 terraform validate
 
@@ -10,3 +14,4 @@ else
   echo "Terraform configuration is invalid."
   exit 1
 fi
+cd ..

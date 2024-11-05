@@ -41,13 +41,3 @@ resource "aws_iam_role_policy" "lex_bot_policy" {
     ]
   })
 }
-
-# Lambda permission for Lex V2
-resource "aws_lambda_permission" "lex_permission" {
-  for_each      = { for idx, arn in tolist([var.lambda_arn]) : idx => arn }
-  statement_id  = "AllowLexV2Invoke"
-  action        = "lambda:InvokeFunction"
-  function_name = split(":", each.value)[6]  # Extract function name from ARN
-  principal     = "lexv2.amazonaws.com"
-  source_arn    = "${aws_lexv2models_bot.chatbot.arn}/versions/${aws_lexv2models_bot_version.bot_version.bot_version}"
-}

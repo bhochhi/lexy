@@ -1,3 +1,4 @@
+
 resource "aws_lexv2models_bot" "chatbot" {
   name        = var.lex_bot_name
   description = "Chatbot for ${var.project_name}"

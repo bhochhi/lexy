@@ -40,13 +40,3 @@ variable "bot_purpose" {
   type        = string
   default     = "customer-support"
 }
-
-variable "lambda_memory_size" {
-  description = "The amount of memory for the Lambda function in MB"
-  type        = number
-}
-
-variable "lambda_timeout" {
-  description = "The timeout for the Lambda function in seconds"
-  type        = number
-}

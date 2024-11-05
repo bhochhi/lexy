@@ -14,7 +14,7 @@ BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
 BRANCH_SUFFIX=$(echo $BRANCH_NAME | sed 's/[^a-zA-Z0-9]/-/g')
 
 # Check if we're in the right directory (should have terraform and lambda directories)
-if [ ! -d "terraform" ] || [ ! -d "lambda" ]; then
+if [ ! -d "terraform" ]; then
     echo "Error: Script must be run from the project root directory"
     exit 1
 fi

@@ -18,7 +18,6 @@ resource "aws_lexv2models_bot" "chatbot" {
 
 resource "aws_lexv2models_bot_locale" "bot_locale" {
   bot_id      = aws_lexv2models_bot.chatbot.id
-  # bot_version = aws_lexv2models_bot_version.bot_version.bot_version
   bot_version = "DRAFT"
   locale_id   = "en_US"
   description = "English US locale for ${var.lex_bot_name}"
@@ -35,11 +34,11 @@ resource "aws_lexv2models_bot_version" "bot_version" {
 
   locale_specification = {
     "en_US" = {
-        source_bot_version = "DRAFT"
+      source_bot_version = "DRAFT"
     }
   }
 
   description = "Version for ${var.environment}"
-    depends_on = [aws_lexv2models_bot_locale.bot_locale]
+  depends_on = [aws_lexv2models_bot_locale.bot_locale]
 
 }

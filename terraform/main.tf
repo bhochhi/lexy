@@ -15,18 +15,9 @@ module "lex" {
   lex_bot_name = local.bot_name
   lex_bot_alias = local.bot_alias
   environment = var.environment
-  lambda_arn = module.lambdas.lex_main_handler_arn
-  lambda_function_name = module.lambdas.function_name
-  depends_on    = [module.lambdas]
+  lambda_function_name = ""
+  lambda_memory_size = 0
+  lambda_timeout = 0
+  project_name = ""
 }
 
-
-module "lambdas" {
-  source = "./modules/lambdas/lex_main_handler"
-  function_name   = var.lambda_function_name
-  memory_size     = var.lambda_memory_size
-  timeout         = var.lambda_timeout
-  environment     = var.environment
-  # role            = var.lambda_role_arn
-  lambda_role_arn = module.iam.lambda_role_arn
-}

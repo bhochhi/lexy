@@ -41,11 +41,6 @@ variable "bot_purpose" {
   default     = "customer-support"
 }
 
-variable "lambda_function_name" {
-  description = "The name of the Lambda function"
-  type        = string
-}
-
 variable "lambda_memory_size" {
   description = "The amount of memory for the Lambda function in MB"
   type        = number

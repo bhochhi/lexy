@@ -25,10 +25,6 @@ if [ ! -f "$TF_VAR_file" ]; then
     exit 1
 fi
 
-# Build Lambda function
-echo "Building Lambda function..."
-./scripts/build_lambda.sh
-
 # Export AWS_PROFILE
 export AWS_PROFILE=$AWS_PROFILE
 

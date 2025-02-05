@@ -1,0 +1,63 @@
+Network of bots.
+--
+- Existing Bot Setup:  Three specialized bots, each with its own CI/CD pipeline and Terraform scripts for deployment.
+
+- Network of Bots Creation: Use the Amazon Lex V2 API or SDK.
+     ```go
+     import (
+         "context"
+         "github.com/aws/aws-sdk-go-v2/config"
+         "github.com/aws/aws-sdk-go-v2/service/lexmodelsv2"
+     )
+
+     func createNetworkOfBots() {
+         cfg, err := config.LoadDefaultConfig(context.TODO())
+         if err != nil {
+             // Handle error
+         }
+
+         client := lexmodelsv2.NewFromConfig(cfg)
+
+         input := &lexmodelsv2.CreateBotGroupInput{
+             BotGroupName: aws.String("MyNetworkOfBots"),
+             Description:  aws.String("Network of specialized bots"),
+             // Add other necessary parameters
+         }
+
+         result, err := client.CreateBotGroup(context.TODO(), input)
+         if err != nil {
+             // Handle error
+         }
+
+         // Use the result as needed
+     }
+     ```
+- Adding Specialized Bots to the Network:
+     ```go
+     func addBotToNetwork(botGroupId, botId, botVersion string) {
+         // Assume client is already created as in the previous example
+
+         input := &lexmodelsv2.CreateBotGroupMemberInput{
+             BotGroupId: aws.String(botGroupId),
+             BotId:      aws.String(botId),
+             BotVersion: aws.String(botVersion),
+         }
+
+         result, err := client.CreateBotGroupMember(context.TODO(), input)
+         if err != nil {
+             // Handle error
+         }
+     }
+     ```
+
+- Integration with CI/CD:
+   - Modify your existing CI/CD pipelines to include the network of bots creation and bot addition steps after successful deployment of individual bots.
+   - You can create a separate pipeline stage that runs the Golang code to create/update the network of bots.
+
+- Version Management: Use the `CreateBotGroupVersion` API to create versions of your network of bots.
+- Alias Management:
+
+
+[1] [Creating a network of bots for your Lex V2 bots - Amazon Lex] (https://docs.aws.amazon.com/lexv2/latest/dg/network-of-bots.html)
+[3] [Creating Amazon Lex V2 bots using templates - Amazon Lex] (https://docs.aws.amazon.com/lexv2/latest/dg/bot-templates.html)
+[6] [Streamline Amazon Lex bot development and deployment by using an automated workflow - AWS Prescriptive Guidance] (https://docs.aws.amazon.com/prescriptive-guidance/latest/patterns/streamline-amazon-lex-bot-development-and-deployment-using-an-automated-workflow.html)

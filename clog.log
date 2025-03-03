@@ -952,3 +952,156 @@ Slot values and their resolution
 Lambda function responses
 Session state and attributes
 Timestamps
+
+
+## 
+Below is an example of a conversational log in JSON format for a Lex V2 bot. This log represents a conversation between a user and a bot for a **balance transfer intent**. The conversation includes responses from both the Lex bot and a Lambda code hook. The conversation is 10 turns long and ends successfully.
+
+```json
+{
+  "sessionId": "example-session-id-12345",
+  "botId": "balance-transfer-bot",
+  "botAliasId": "TSTALIASID",
+  "localeId": "en_US",
+  "sessionState": {
+    "dialogAction": {
+      "type": "Close",
+      "fulfillmentState": "Fulfilled"
+    },
+    "intent": {
+      "name": "BalanceTransferIntent",
+      "slots": {
+        "sourceAccount": "1234567890",
+        "destinationAccount": "0987654321",
+        "amount": "500.00",
+        "confirmation": "yes"
+      },
+      "state": "Fulfilled"
+    }
+  },
+  "transcript": [
+    {
+      "turn": 1,
+      "role": "user",
+      "message": "I want to transfer money."
+    },
+    {
+      "turn": 2,
+      "role": "bot",
+      "message": "Sure, I can help with that. Could you please provide the source account number?"
+    },
+    {
+      "turn": 3,
+      "role": "user",
+      "message": "It's 1234567890."
+    },
+    {
+      "turn": 4,
+      "role": "bot",
+      "message": "Got it. What is the destination account number?"
+    },
+    {
+      "turn": 5,
+      "role": "user",
+      "message": "0987654321."
+    },
+    {
+      "turn": 6,
+      "role": "bot",
+      "message": "Thank you. How much would you like to transfer?"
+    },
+    {
+      "turn": 7,
+      "role": "user",
+      "message": "500 dollars."
+    },
+    {
+      "turn": 8,
+      "role": "bot",
+      "message": "Please confirm: You want to transfer $500.00 from account 1234567890 to account 0987654321. Is this correct?"
+    },
+    {
+      "turn": 9,
+      "role": "user",
+      "message": "Yes."
+    },
+    {
+      "turn": 10,
+      "role": "bot",
+      "message": "Your transfer is complete. A confirmation has been sent to your email. Is there anything else I can assist you with?"
+    }
+  ],
+  "interpretations": [
+    {
+      "intent": {
+        "name": "BalanceTransferIntent",
+        "slots": {
+          "sourceAccount": {
+            "value": {
+              "originalValue": "1234567890",
+              "interpretedValue": "1234567890",
+              "resolvedValues": ["1234567890"]
+            }
+          },
+          "destinationAccount": {
+            "value": {
+              "originalValue": "0987654321",
+              "interpretedValue": "0987654321",
+              "resolvedValues": ["0987654321"]
+            }
+          },
+          "amount": {
+            "value": {
+              "originalValue": "500 dollars",
+              "interpretedValue": "500.00",
+              "resolvedValues": ["500.00"]
+            }
+          },
+          "confirmation": {
+            "value": {
+              "originalValue": "yes",
+              "interpretedValue": "yes",
+              "resolvedValues": ["yes"]
+            }
+          }
+        },
+        "state": "Fulfilled"
+      },
+      "nluConfidence": 0.95
+    }
+  ],
+  "requestAttributes": {},
+  "sessionAttributes": {
+    "lastConfirmedIntent": "BalanceTransferIntent",
+    "transferStatus": "Completed"
+  },
+  "messages": [
+    {
+      "contentType": "PlainText",
+      "content": "Your transfer is complete. A confirmation has been sent to your email. Is there anything else I can assist you with?"
+    }
+  ],
+  "inputMode": "Text",
+  "invocationSource": "DialogCodeHook",
+  "lambdaInvocations": [
+    {
+      "lambdaFunctionName": "BalanceTransferLambda",
+      "invocationTimestamp": "2023-10-01T12:34:56Z",
+      "response": {
+        "statusCode": 200,
+        "body": "{\"transferStatus\": \"Completed\", \"confirmationNumber\": \"ABC123XYZ\"}"
+      }
+    }
+  ]
+}
+```
+
+### Explanation of the Log:
+1. **Session Details**: Includes `sessionId`, `botId`, `botAliasId`, and `localeId`.
+2. **Session State**: Indicates the final state of the session (`Fulfilled`) and the resolved slots (`sourceAccount`, `destinationAccount`, `amount`, `confirmation`).
+3. **Transcript**: A list of turns in the conversation, alternating between the user and the bot.
+4. **Interpretations**: Shows the intent (`BalanceTransferIntent`) and the resolved slot values.
+5. **Lambda Invocations**: Includes details about the Lambda function invocation (`BalanceTransferLambda`) that processed the balance transfer.
+6. **Messages**: The final message sent by the bot to the user.
+
+This log represents a successful balance transfer conversation with 10 turns, including both Lex bot responses and Lambda code hook interactions.

@@ -1,0 +1,954 @@
+{
+  "botId": "LNXYZABCDEFG",
+  "botAliasId": "TESTBGCCGRGBEF",
+  "localeId": "en_US",
+  "sessionId": "38f46c92-82e2-4824-a7cc-7284be429d12",
+  "conversationLog": {
+    "conversationId": "21987b56-e631-49df-9d34-6b1ae7e98f44",
+    "sessionId": "38f46c92-82e2-4824-a7cc-7284be429d12",
+    "startTime": "2025-03-02T14:23:45.156Z",
+    "endTime": "2025-03-02T14:29:12.873Z",
+    "conversationState": "Completed",
+    "intentResult": {
+      "interpretations": [
+        {
+          "intent": {
+            "name": "BalanceTransfer",
+            "state": "Fulfilled",
+            "confirmationState": "Confirmed",
+            "slots": {
+              "TransferAmount": {
+                "value": {
+                  "interpretedValue": "5000",
+                  "originalValue": "five thousand dollars",
+                  "resolvedValues": ["5000"]
+                }
+              },
+              "SourceAccount": {
+                "value": {
+                  "interpretedValue": "credit",
+                  "originalValue": "credit card",
+                  "resolvedValues": ["credit"]
+                }
+              },
+              "DestinationAccount": {
+                "value": {
+                  "interpretedValue": "checking",
+                  "originalValue": "checking account",
+                  "resolvedValues": ["checking"]
+                }
+              },
+              "TransferDate": {
+                "value": {
+                  "interpretedValue": "2025-03-05",
+                  "originalValue": "Wednesday",
+                  "resolvedValues": ["2025-03-05"]
+                }
+              },
+              "ConfirmTransfer": {
+                "value": {
+                  "interpretedValue": "Yes",
+                  "originalValue": "yes",
+                  "resolvedValues": ["Yes"]
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "turns": [
+      {
+        "turnIndex": 1,
+        "turnTime": "2025-03-02T14:23:45.156Z",
+        "participant": {
+          "type": "Agent",
+          "participantId": "BankBot"
+        },
+        "message": {
+          "content": "Welcome to Bank of Example. How can I help you today?",
+          "contentType": "PlainText"
+        },
+        "lexResponse": {
+          "messages": [
+            {
+              "content": "Welcome to Bank of Example. How can I help you today?",
+              "contentType": "PlainText"
+            }
+          ],
+          "requestAttributes": {},
+          "sessionState": {
+            "dialogAction": {
+              "type": "ElicitIntent"
+            },
+            "intent": {},
+            "sessionAttributes": {
+              "sessionStartTime": "2025-03-02T14:23:45.156Z"
+            }
+          }
+        }
+      },
+      {
+        "turnIndex": 2,
+        "turnTime": "2025-03-02T14:24:02.324Z",
+        "participant": {
+          "type": "User",
+          "participantId": "user-12345"
+        },
+        "message": {
+          "content": "I need to transfer some money from my credit card",
+          "contentType": "PlainText"
+        },
+        "lexRequest": {
+          "inputMode": "Text",
+          "messageVersion": "2.0",
+          "text": "I need to transfer some money from my credit card",
+          "requestAttributes": {},
+          "sessionState": {
+            "sessionAttributes": {
+              "sessionStartTime": "2025-03-02T14:23:45.156Z"
+            }
+          }
+        }
+      },
+      {
+        "turnIndex": 3,
+        "turnTime": "2025-03-02T14:24:03.781Z",
+        "participant": {
+          "type": "Agent",
+          "participantId": "BankBot"
+        },
+        "message": {
+          "content": "I can help you with a balance transfer. How much would you like to transfer from your credit card?",
+          "contentType": "PlainText"
+        },
+        "lexResponse": {
+          "messages": [
+            {
+              "content": "I can help you with a balance transfer. How much would you like to transfer from your credit card?",
+              "contentType": "PlainText"
+            }
+          ],
+          "sessionState": {
+            "dialogAction": {
+              "type": "ElicitSlot",
+              "slotToElicit": "TransferAmount"
+            },
+            "intent": {
+              "name": "BalanceTransfer",
+              "state": "InProgress",
+              "slots": {
+                "TransferAmount": null,
+                "SourceAccount": {
+                  "value": {
+                    "interpretedValue": "credit",
+                    "originalValue": "credit card",
+                    "resolvedValues": ["credit"]
+                  }
+                },
+                "DestinationAccount": null,
+                "TransferDate": null,
+                "ConfirmTransfer": null
+              }
+            },
+            "sessionAttributes": {
+              "sessionStartTime": "2025-03-02T14:23:45.156Z",
+              "intentName": "BalanceTransfer"
+            }
+          }
+        },
+        "lambdaResponse": {
+          "functionName": "bank-bot-intent-handler",
+          "invocationType": "RequestResponse",
+          "statusCode": 200,
+          "executionTime": 187,
+          "payload": {
+            "sessionState": {
+              "dialogAction": {
+                "type": "ElicitSlot",
+                "slotToElicit": "TransferAmount"
+              },
+              "intent": {
+                "name": "BalanceTransfer",
+                "state": "InProgress",
+                "slots": {
+                  "TransferAmount": null,
+                  "SourceAccount": {
+                    "value": {
+                      "interpretedValue": "credit",
+                      "originalValue": "credit card",
+                      "resolvedValues": ["credit"]
+                    }
+                  },
+                  "DestinationAccount": null,
+                  "TransferDate": null,
+                  "ConfirmTransfer": null
+                }
+              },
+              "sessionAttributes": {
+                "sessionStartTime": "2025-03-02T14:23:45.156Z",
+                "intentName": "BalanceTransfer"
+              }
+            },
+            "messages": [
+              {
+                "content": "I can help you with a balance transfer. How much would you like to transfer from your credit card?",
+                "contentType": "PlainText"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "turnIndex": 4,
+        "turnTime": "2025-03-02T14:24:23.651Z",
+        "participant": {
+          "type": "User",
+          "participantId": "user-12345"
+        },
+        "message": {
+          "content": "five thousand dollars",
+          "contentType": "PlainText"
+        },
+        "lexRequest": {
+          "inputMode": "Text",
+          "messageVersion": "2.0",
+          "text": "five thousand dollars",
+          "requestAttributes": {},
+          "sessionState": {
+            "sessionAttributes": {
+              "sessionStartTime": "2025-03-02T14:23:45.156Z",
+              "intentName": "BalanceTransfer"
+            },
+            "intent": {
+              "name": "BalanceTransfer",
+              "slots": {
+                "TransferAmount": null,
+                "SourceAccount": {
+                  "value": {
+                    "interpretedValue": "credit",
+                    "originalValue": "credit card"
+                  }
+                },
+                "DestinationAccount": null,
+                "TransferDate": null,
+                "ConfirmTransfer": null
+              }
+            }
+          }
+        }
+      },
+      {
+        "turnIndex": 5,
+        "turnTime": "2025-03-02T14:24:24.891Z",
+        "participant": {
+          "type": "Agent",
+          "participantId": "BankBot"
+        },
+        "message": {
+          "content": "Which account would you like to transfer $5,000 to?",
+          "contentType": "PlainText"
+        },
+        "lexResponse": {
+          "messages": [
+            {
+              "content": "Which account would you like to transfer $5,000 to?",
+              "contentType": "PlainText"
+            }
+          ],
+          "sessionState": {
+            "dialogAction": {
+              "type": "ElicitSlot",
+              "slotToElicit": "DestinationAccount"
+            },
+            "intent": {
+              "name": "BalanceTransfer",
+              "state": "InProgress",
+              "slots": {
+                "TransferAmount": {
+                  "value": {
+                    "interpretedValue": "5000",
+                    "originalValue": "five thousand dollars",
+                    "resolvedValues": ["5000"]
+                  }
+                },
+                "SourceAccount": {
+                  "value": {
+                    "interpretedValue": "credit",
+                    "originalValue": "credit card",
+                    "resolvedValues": ["credit"]
+                  }
+                },
+                "DestinationAccount": null,
+                "TransferDate": null,
+                "ConfirmTransfer": null
+              }
+            },
+            "sessionAttributes": {
+              "sessionStartTime": "2025-03-02T14:23:45.156Z",
+              "intentName": "BalanceTransfer"
+            }
+          }
+        }
+      },
+      {
+        "turnIndex": 6,
+        "turnTime": "2025-03-02T14:24:42.155Z",
+        "participant": {
+          "type": "User",
+          "participantId": "user-12345"
+        },
+        "message": {
+          "content": "my checking account",
+          "contentType": "PlainText"
+        },
+        "lexRequest": {
+          "inputMode": "Text",
+          "messageVersion": "2.0",
+          "text": "my checking account",
+          "requestAttributes": {},
+          "sessionState": {
+            "sessionAttributes": {
+              "sessionStartTime": "2025-03-02T14:23:45.156Z",
+              "intentName": "BalanceTransfer"
+            },
+            "intent": {
+              "name": "BalanceTransfer",
+              "slots": {
+                "TransferAmount": {
+                  "value": {
+                    "interpretedValue": "5000",
+                    "originalValue": "five thousand dollars"
+                  }
+                },
+                "SourceAccount": {
+                  "value": {
+                    "interpretedValue": "credit",
+                    "originalValue": "credit card"
+                  }
+                },
+                "DestinationAccount": null,
+                "TransferDate": null,
+                "ConfirmTransfer": null
+              }
+            }
+          }
+        }
+      },
+      {
+        "turnIndex": 7,
+        "turnTime": "2025-03-02T14:24:43.289Z",
+        "participant": {
+          "type": "Agent",
+          "participantId": "BankBot"
+        },
+        "message": {
+          "content": "When would you like this transfer to occur? You can say a date or day of the week.",
+          "contentType": "PlainText"
+        },
+        "lexResponse": {
+          "messages": [
+            {
+              "content": "When would you like this transfer to occur? You can say a date or day of the week.",
+              "contentType": "PlainText"
+            }
+          ],
+          "sessionState": {
+            "dialogAction": {
+              "type": "ElicitSlot",
+              "slotToElicit": "TransferDate"
+            },
+            "intent": {
+              "name": "BalanceTransfer",
+              "state": "InProgress",
+              "slots": {
+                "TransferAmount": {
+                  "value": {
+                    "interpretedValue": "5000",
+                    "originalValue": "five thousand dollars",
+                    "resolvedValues": ["5000"]
+                  }
+                },
+                "SourceAccount": {
+                  "value": {
+                    "interpretedValue": "credit",
+                    "originalValue": "credit card",
+                    "resolvedValues": ["credit"]
+                  }
+                },
+                "DestinationAccount": {
+                  "value": {
+                    "interpretedValue": "checking",
+                    "originalValue": "checking account",
+                    "resolvedValues": ["checking"]
+                  }
+                },
+                "TransferDate": null,
+                "ConfirmTransfer": null
+              }
+            },
+            "sessionAttributes": {
+              "sessionStartTime": "2025-03-02T14:23:45.156Z",
+              "intentName": "BalanceTransfer"
+            }
+          }
+        },
+        "lambdaResponse": {
+          "functionName": "bank-bot-intent-handler",
+          "invocationType": "RequestResponse",
+          "statusCode": 200,
+          "executionTime": 165,
+          "payload": {
+            "sessionState": {
+              "dialogAction": {
+                "type": "ElicitSlot",
+                "slotToElicit": "TransferDate"
+              },
+              "intent": {
+                "name": "BalanceTransfer",
+                "state": "InProgress",
+                "slots": {
+                  "TransferAmount": {
+                    "value": {
+                      "interpretedValue": "5000",
+                      "originalValue": "five thousand dollars",
+                      "resolvedValues": ["5000"]
+                    }
+                  },
+                  "SourceAccount": {
+                    "value": {
+                      "interpretedValue": "credit",
+                      "originalValue": "credit card",
+                      "resolvedValues": ["credit"]
+                    }
+                  },
+                  "DestinationAccount": {
+                    "value": {
+                      "interpretedValue": "checking",
+                      "originalValue": "checking account",
+                      "resolvedValues": ["checking"]
+                    }
+                  },
+                  "TransferDate": null,
+                  "ConfirmTransfer": null
+                }
+              },
+              "sessionAttributes": {
+                "sessionStartTime": "2025-03-02T14:23:45.156Z",
+                "intentName": "BalanceTransfer"
+              }
+            },
+            "messages": [
+              {
+                "content": "When would you like this transfer to occur? You can say a date or day of the week.",
+                "contentType": "PlainText"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "turnIndex": 8,
+        "turnTime": "2025-03-02T14:25:12.344Z",
+        "participant": {
+          "type": "User",
+          "participantId": "user-12345"
+        },
+        "message": {
+          "content": "Wednesday",
+          "contentType": "PlainText"
+        },
+        "lexRequest": {
+          "inputMode": "Text",
+          "messageVersion": "2.0",
+          "text": "Wednesday",
+          "requestAttributes": {},
+          "sessionState": {
+            "sessionAttributes": {
+              "sessionStartTime": "2025-03-02T14:23:45.156Z",
+              "intentName": "BalanceTransfer"
+            },
+            "intent": {
+              "name": "BalanceTransfer",
+              "slots": {
+                "TransferAmount": {
+                  "value": {
+                    "interpretedValue": "5000",
+                    "originalValue": "five thousand dollars"
+                  }
+                },
+                "SourceAccount": {
+                  "value": {
+                    "interpretedValue": "credit",
+                    "originalValue": "credit card"
+                  }
+                },
+                "DestinationAccount": {
+                  "value": {
+                    "interpretedValue": "checking",
+                    "originalValue": "checking account"
+                  }
+                },
+                "TransferDate": null,
+                "ConfirmTransfer": null
+              }
+            }
+          }
+        }
+      },
+      {
+        "turnIndex": 9,
+        "turnTime": "2025-03-02T14:25:14.622Z",
+        "participant": {
+          "type": "Agent",
+          "participantId": "BankBot"
+        },
+        "message": {
+          "content": "Let me confirm: You want to transfer $5,000 from your credit card to your checking account on Wednesday, March 5th, 2025. Is that correct?",
+          "contentType": "PlainText"
+        },
+        "lexResponse": {
+          "messages": [
+            {
+              "content": "Let me confirm: You want to transfer $5,000 from your credit card to your checking account on Wednesday, March 5th, 2025. Is that correct?",
+              "contentType": "PlainText"
+            }
+          ],
+          "sessionState": {
+            "dialogAction": {
+              "type": "ElicitSlot",
+              "slotToElicit": "ConfirmTransfer"
+            },
+            "intent": {
+              "name": "BalanceTransfer",
+              "state": "InProgress",
+              "slots": {
+                "TransferAmount": {
+                  "value": {
+                    "interpretedValue": "5000",
+                    "originalValue": "five thousand dollars",
+                    "resolvedValues": ["5000"]
+                  }
+                },
+                "SourceAccount": {
+                  "value": {
+                    "interpretedValue": "credit",
+                    "originalValue": "credit card",
+                    "resolvedValues": ["credit"]
+                  }
+                },
+                "DestinationAccount": {
+                  "value": {
+                    "interpretedValue": "checking",
+                    "originalValue": "checking account",
+                    "resolvedValues": ["checking"]
+                  }
+                },
+                "TransferDate": {
+                  "value": {
+                    "interpretedValue": "2025-03-05",
+                    "originalValue": "Wednesday",
+                    "resolvedValues": ["2025-03-05"]
+                  }
+                },
+                "ConfirmTransfer": null
+              }
+            },
+            "sessionAttributes": {
+              "sessionStartTime": "2025-03-02T14:23:45.156Z",
+              "intentName": "BalanceTransfer"
+            }
+          }
+        },
+        "lambdaResponse": {
+          "functionName": "bank-bot-intent-handler",
+          "invocationType": "RequestResponse",
+          "statusCode": 200,
+          "executionTime": 201,
+          "payload": {
+            "sessionState": {
+              "dialogAction": {
+                "type": "ElicitSlot",
+                "slotToElicit": "ConfirmTransfer"
+              },
+              "intent": {
+                "name": "BalanceTransfer",
+                "state": "InProgress",
+                "slots": {
+                  "TransferAmount": {
+                    "value": {
+                      "interpretedValue": "5000",
+                      "originalValue": "five thousand dollars",
+                      "resolvedValues": ["5000"]
+                    }
+                  },
+                  "SourceAccount": {
+                    "value": {
+                      "interpretedValue": "credit",
+                      "originalValue": "credit card",
+                      "resolvedValues": ["credit"]
+                    }
+                  },
+                  "DestinationAccount": {
+                    "value": {
+                      "interpretedValue": "checking",
+                      "originalValue": "checking account",
+                      "resolvedValues": ["checking"]
+                    }
+                  },
+                  "TransferDate": {
+                    "value": {
+                      "interpretedValue": "2025-03-05",
+                      "originalValue": "Wednesday",
+                      "resolvedValues": ["2025-03-05"]
+                    }
+                  },
+                  "ConfirmTransfer": null
+                }
+              },
+              "sessionAttributes": {
+                "sessionStartTime": "2025-03-02T14:23:45.156Z",
+                "intentName": "BalanceTransfer"
+              }
+            },
+            "messages": [
+              {
+                "content": "Let me confirm: You want to transfer $5,000 from your credit card to your checking account on Wednesday, March 5th, 2025. Is that correct?",
+                "contentType": "PlainText"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "turnIndex": 10,
+        "turnTime": "2025-03-02T14:25:56.211Z",
+        "participant": {
+          "type": "User",
+          "participantId": "user-12345"
+        },
+        "message": {
+          "content": "yes",
+          "contentType": "PlainText"
+        },
+        "lexRequest": {
+          "inputMode": "Text",
+          "messageVersion": "2.0",
+          "text": "yes",
+          "requestAttributes": {},
+          "sessionState": {
+            "sessionAttributes": {
+              "sessionStartTime": "2025-03-02T14:23:45.156Z",
+              "intentName": "BalanceTransfer"
+            },
+            "intent": {
+              "name": "BalanceTransfer",
+              "slots": {
+                "TransferAmount": {
+                  "value": {
+                    "interpretedValue": "5000",
+                    "originalValue": "five thousand dollars"
+                  }
+                },
+                "SourceAccount": {
+                  "value": {
+                    "interpretedValue": "credit",
+                    "originalValue": "credit card"
+                  }
+                },
+                "DestinationAccount": {
+                  "value": {
+                    "interpretedValue": "checking",
+                    "originalValue": "checking account"
+                  }
+                },
+                "TransferDate": {
+                  "value": {
+                    "interpretedValue": "2025-03-05",
+                    "originalValue": "Wednesday"
+                  }
+                },
+                "ConfirmTransfer": null
+              }
+            }
+          }
+        }
+      },
+      {
+        "turnIndex": 11,
+        "turnTime": "2025-03-02T14:25:58.443Z",
+        "participant": {
+          "type": "Agent",
+          "participantId": "BankBot"
+        },
+        "message": {
+          "content": "Great! I'll process that transfer for you. Let me check if there are any fees associated with this transaction.",
+          "contentType": "PlainText"
+        },
+        "lexResponse": {
+          "messages": [
+            {
+              "content": "Great! I'll process that transfer for you. Let me check if there are any fees associated with this transaction.",
+              "contentType": "PlainText"
+            }
+          ],
+          "sessionState": {
+            "dialogAction": {
+              "type": "Delegate"
+            },
+            "intent": {
+              "name": "BalanceTransfer",
+              "state": "InProgress",
+              "confirmationState": "None",
+              "slots": {
+                "TransferAmount": {
+                  "value": {
+                    "interpretedValue": "5000",
+                    "originalValue": "five thousand dollars",
+                    "resolvedValues": ["5000"]
+                  }
+                },
+                "SourceAccount": {
+                  "value": {
+                    "interpretedValue": "credit",
+                    "originalValue": "credit card",
+                    "resolvedValues": ["credit"]
+                  }
+                },
+                "DestinationAccount": {
+                  "value": {
+                    "interpretedValue": "checking",
+                    "originalValue": "checking account",
+                    "resolvedValues": ["checking"]
+                  }
+                },
+                "TransferDate": {
+                  "value": {
+                    "interpretedValue": "2025-03-05",
+                    "originalValue": "Wednesday",
+                    "resolvedValues": ["2025-03-05"]
+                  }
+                },
+                "ConfirmTransfer": {
+                  "value": {
+                    "interpretedValue": "Yes",
+                    "originalValue": "yes",
+                    "resolvedValues": ["Yes"]
+                  }
+                }
+              }
+            },
+            "sessionAttributes": {
+              "sessionStartTime": "2025-03-02T14:23:45.156Z",
+              "intentName": "BalanceTransfer"
+            }
+          }
+        },
+        "lambdaResponse": {
+          "functionName": "bank-bot-transfer-processor",
+          "invocationType": "RequestResponse",
+          "statusCode": 200,
+          "executionTime": 567,
+          "payload": {
+            "sessionState": {
+              "dialogAction": {
+                "type": "Delegate"
+              },
+              "intent": {
+                "name": "BalanceTransfer",
+                "state": "InProgress",
+                "confirmationState": "None",
+                "slots": {
+                  "TransferAmount": {
+                    "value": {
+                      "interpretedValue": "5000",
+                      "originalValue": "five thousand dollars",
+                      "resolvedValues": ["5000"]
+                    }
+                  },
+                  "SourceAccount": {
+                    "value": {
+                      "interpretedValue": "credit",
+                      "originalValue": "credit card",
+                      "resolvedValues": ["credit"]
+                    }
+                  },
+                  "DestinationAccount": {
+                    "value": {
+                      "interpretedValue": "checking",
+                      "originalValue": "checking account",
+                      "resolvedValues": ["checking"]
+                    }
+                  },
+                  "TransferDate": {
+                    "value": {
+                      "interpretedValue": "2025-03-05",
+                      "originalValue": "Wednesday",
+                      "resolvedValues": ["2025-03-05"]
+                    }
+                  },
+                  "ConfirmTransfer": {
+                    "value": {
+                      "interpretedValue": "Yes",
+                      "originalValue": "yes",
+                      "resolvedValues": ["Yes"]
+                    }
+                  }
+                }
+              },
+              "sessionAttributes": {
+                "sessionStartTime": "2025-03-02T14:23:45.156Z",
+                "intentName": "BalanceTransfer",
+                "transferId": "TRX-20250302-56728",
+                "availableCredit": "10000.00",
+                "accountBalance": "2345.67"
+              }
+            },
+            "messages": [
+              {
+                "content": "Great! I'll process that transfer for you. Let me check if there are any fees associated with this transaction.",
+                "contentType": "PlainText"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "turnIndex": 12,
+        "turnTime": "2025-03-02T14:26:35.821Z",
+        "participant": {
+          "type": "Agent",
+          "participantId": "BankBot"
+        },
+        "message": {
+          "content": "Good news! There are no fees for this transfer. Your transfer of $5,000 from your credit card to your checking account has been scheduled for Wednesday, March 5th, 2025. The transfer confirmation number is TRX-20250302-56728. Is there anything else I can help you with today?",
+          "contentType": "PlainText"
+        },
+        "lexResponse": {
+          "messages": [
+            {
+              "content": "Good news! There are no fees for this transfer. Your transfer of $5,000 from your credit card to your checking account has been scheduled for Wednesday, March 5th, 2025. The transfer confirmation number is TRX-20250302-56728. Is there anything else I can help you with today?",
+              "contentType": "PlainText"
+            }
+          ],
+          "sessionState": {
+            "dialogAction": {
+              "type": "ElicitIntent"
+            },
+            "intent": {
+              "name": "BalanceTransfer",
+              "state": "Fulfilled",
+              "confirmationState": "Confirmed",
+              "slots": {
+                "TransferAmount": {
+                  "value": {
+                    "interpretedValue": "5000",
+                    "originalValue": "five thousand dollars",
+                    "resolvedValues": ["5000"]
+                  }
+                },
+                "SourceAccount": {
+                  "value": {
+                    "interpretedValue": "credit",
+                    "originalValue": "credit card",
+                    "resolvedValues": ["credit"]
+                  }
+                },
+                "DestinationAccount": {
+                  "value": {
+                    "interpretedValue": "checking",
+                    "originalValue": "checking account",
+                    "resolvedValues": ["checking"]
+                  }
+                },
+                "TransferDate": {
+                  "value": {
+                    "interpretedValue": "2025-03-05",
+                    "originalValue": "Wednesday",
+                    "resolvedValues": ["2025-03-05"]
+                  }
+                },
+                "ConfirmTransfer": {
+                  "value": {
+                    "interpretedValue": "Yes",
+                    "originalValue": "yes",
+                    "resolvedValues": ["Yes"]
+                  }
+                }
+              }
+            },
+            "sessionAttributes": {
+              "sessionStartTime": "2025-03-02T14:23:45.156Z",
+              "intentName": "BalanceTransfer",
+              "transferId": "TRX-20250302-56728",
+              "availableCredit": "10000.00",
+              "accountBalance": "2345.67",
+              "transferSuccess": "true"
+            }
+          }
+        },
+        "lambdaResponse": {
+          "functionName": "bank-bot-transfer-processor",
+          "invocationType": "RequestResponse",
+          "statusCode": 200,
+          "executionTime": 432,
+          "payload": {
+            "sessionState": {
+              "dialogAction": {
+                "type": "ElicitIntent"
+              },
+              "intent": {
+                "name": "BalanceTransfer",
+                "state": "Fulfilled",
+                "confirmationState": "Confirmed",
+                "slots": {
+                  "TransferAmount": {
+                    "value": {
+                      "interpretedValue": "5000",
+                      "originalValue": "five thousand dollars",
+                      "resolvedValues": ["5000"]
+                    }
+                  },
+                  "SourceAccount": {
+                    "value": {
+                      "interpretedValue": "credit",
+                      "originalValue": "credit card",
+                      "resolvedValues": ["credit"]
+                    }
+                  },
+                  "DestinationAccount": {
+                    "value": {
+                      "interpretedValue": "checking",
+                      "originalValue": "checking account",
+                      "resolvedValues": ["checking"]
+                    }
+                  },
+                  "TransferDate": {
+                    "value": {
+                      "interpretedValue": "2025-03-05",
+                      "originalValue": "Wednesday",
+                      "resolvedValues": ["2025-03-05"]
+                    }
+                  },
+                  "ConfirmTransfer": {
+                    "value": {
+                      "interpretedValue": "Yes",
+                      "originalValue": "yes",
+                      "resolvedValues": ["Yes"]
+                    }
+
+
+key points about Lex V2 conversation logs:
+
+Complete conversation logs: You'll get one complete log for the entire conversation that includes all turns from start to finish. The example I started to provide would have included all 12 turns in a single JSON object.
+Size limits: The complete conversation log can be quite large, especially for complex interactions. For a 12-turn conversation like the one you requested, the full JSON log could easily be 20-30KB or more.
+Per-session organization: Logs are organized by session ID, so you'll have one complete log file per user conversation session.
+Storage and retention: These logs are stored in Amazon CloudWatch Logs or S3 buckets depending on your configuration, with configurable retention periods.
+Components of each turn: As you saw in the example, each turn includes detailed information including:
+
+Request/response details
+Intent recognition data
+Slot values and their resolution
+Lambda function responses
+Session state and attributes
+Timestamps

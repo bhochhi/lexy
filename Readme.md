@@ -6,22 +6,22 @@
 - Conversational Interface: voice, text, chatbot, other platforms.
 - Identify use cases:
      UseCase:   As a __member__ I want to __know the contact number___ so that _I can call with regard to my some questions_.
-     ![alt text](image-1.png)
+     ![alt text](assets/image-1.png)
 
      Problem: member want to know contact address/number
      opportunity:
 - Define the persona: brand guidlines. secure and trustworthy financial products, innovatives.
 - script the happy path: Open-ended, Menu, form-fillings. how to present? confirming the intent?
-![alt text](image.png)
+![alt text](assets/image.png)
 
 - map flow documenting:
- ![alt text](image-2.png)
+ ![alt text](assets/image-2.png)
 
 - interaction model
-![alt text](image-3.png)
+![alt text](assets/image-3.png)
 
 - prototyping
-  ![alt text](image-4.png)
+  ![alt text](assets/image-4.png)
 
 - test and iterate.
 
@@ -48,7 +48,7 @@ Efficiency: Reduces overhead and complexity compared to managing multiple bots.
 Each intent within the bot is designed to handle specific tasks or responses, and the bot uses these intents to understand and process user inputs effectively.
 
 ### Development Deployment strategy
-![alt text](image-5.png)
+![alt text](assets/image-5.png)
 
 
 ### Testing Strategy.
@@ -67,7 +67,7 @@ Each intent within the bot is designed to handle specific tasks or responses, an
 
 ### Analytics and Monitoring/Observability
 - https://us-east-1.console.aws.amazon.com/lexv2/home?region=us-east-1#bot/VKKIFWLLLZ/analytics/activityOverview
-![alt text](image-7.png)
+![alt text](assets/image-7.png)
 
 
 

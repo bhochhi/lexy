@@ -1,6 +1,0 @@
-**/*.zip
-.idea
-*.iml
-**/.terraform
-**/*.tfstate
-**/.terraform.lock.hcl

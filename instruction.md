@@ -140,3 +140,19 @@ Below are suggested Lex intent names, short description, sample utterances, and 
   * Configure IAM roles/policies.
   * Provide deployment script (e.g., `scripts/deploy.sh`) as needed.
 
+---
+
+## Implementation Notes (Added by Build)
+
+Provisioned via CDK (LexyStack):
+
+* Lex V2 Bot (10 intents) + Version + prod Alias
+* Lambda (Node.js) for /chat classification + routing
+* API Gateway REST (POST /chat)
+* IAM policies (Bedrock InvokeModel, Lex runtime)
+* Deployment script `scripts/deploy.sh`
+
+Lambda env: LEX_BOT_ID, LEX_BOT_ALIAS_ID, LEX_LOCALE_ID, INTENT_CONFIDENCE_THRESHOLD, BEDROCK_MODEL_ID.
+
+Next: add fulfillment hooks, persistence, logging improvements.
+

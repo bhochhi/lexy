@@ -3,14 +3,16 @@ package banking
 import (
 	"strings"
 
-	"github.com/bhochhi/lexy/orchestrator"
+	"github.com/bhochhi/lexy/codehook"
 )
 
-// Registry of banking domain functions
+// hooks implements the banking domain functions dispatcher.
+type hooks struct{}
 
-type Registry struct{}
+// New returns the codehook.Hook for the banking domain.
+func New() codehook.Hook { return &hooks{} }
 
-func (r *Registry) Call(name string, ctx map[string]any, args map[string]any) (map[string]any, error) {
+func (r *hooks) Invoke(name string, ctx map[string]any, args map[string]any) (map[string]any, error) {
 	switch name {
 	case "hasBankingProduct":
 		return hasBankingProduct(ctx, args)
@@ -41,4 +43,5 @@ func hasCreditCards(ctx map[string]any, args map[string]any) (map[string]any, er
 	return map[string]any{"hasData": last%2 == 0}, nil
 }
 
-var _ orchestrator.IntentFunctions = (*Registry)(nil)
+// Compile-time check (optional)
+var _ codehook.Hook = (*hooks)(nil)

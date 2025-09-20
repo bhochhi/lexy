@@ -5,14 +5,16 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/bhochhi/lexy/codehook"
 	"github.com/bhochhi/lexy/session"
 )
 
-type Registry struct{}
+type hooks struct{}
 
-func NewRegistry() *Registry { return &Registry{} }
+// New returns the codehook.Hook for this intent.
+func New() codehook.Hook { return &hooks{} }
 
-func (r *Registry) Call(name string, ctx map[string]any, args map[string]any) (map[string]any, error) {
+func (r *hooks) Invoke(name string, ctx map[string]any, args map[string]any) (map[string]any, error) {
 	switch name {
 	case "checkClientAccounts":
 		return checkClientAccounts(ctx, args)
@@ -106,3 +108,6 @@ func lastToken(s string) string {
 	}
 	return parts[len(parts)-1]
 }
+
+// Compile-time check (optional)
+var _ codehook.Hook = (*hooks)(nil)

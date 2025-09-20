@@ -5,16 +5,18 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/bhochhi/lexy/codehook"
 	"github.com/bhochhi/lexy/session"
 )
 
-// Registry implements orchestrator.IntentFunctions for this intent.
-type Registry struct{}
+// hooks implements codehook.Hook for this intent.
+type hooks struct{}
 
-func NewRegistry() *Registry { return &Registry{} }
+// New returns the codehook.Hook for this intent.
+func New() codehook.Hook { return &hooks{} }
 
-// Call dispatches function by name.
-func (r *Registry) Call(name string, ctx map[string]any, args map[string]any) (map[string]any, error) {
+// Invoke dispatches function by name.
+func (r *hooks) Invoke(name string, ctx map[string]any, args map[string]any) (map[string]any, error) {
 	funcMap := map[string]func(map[string]any, map[string]any) (map[string]any, error){
 		"checkClientPolicies":      checkClientPolicies,
 		"getDynamicPolicies":       getDynamicPolicies,
@@ -34,8 +36,6 @@ func (r *Registry) Call(name string, ctx map[string]any, args map[string]any) (m
 	}
 	return nil, fmt.Errorf("unknown function: %s", name)
 }
-
-// Registration is manual via registry.New(); no init-based registration here.
 
 // --- Function implementations (mocked) ---
 
@@ -147,3 +147,6 @@ func resolveNextStep(ctx map[string]any, args map[string]any) (map[string]any, e
 	// In real logic, we might branch by vehicle coverage; here always go to deductibleResult
 	return map[string]any{"nextStep": "deductibleResult"}, nil
 }
+
+// Compile-time check (optional)
+var _ codehook.Hook = (*hooks)(nil)

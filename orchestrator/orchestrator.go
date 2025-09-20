@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/bhochhi/lexy/codehook"
 	"github.com/bhochhi/lexy/nlu"
 	"github.com/bhochhi/lexy/session"
 )
@@ -66,11 +67,7 @@ type SessionStore interface {
 	Save(*session.Session)
 }
 
-// Intent function registry contract
-
-type IntentFunctions interface {
-	Call(name string, ctx map[string]any, args map[string]any) (map[string]any, error)
-}
+// Code hooks registry contract (intent + domain hooks) now lives in codehook.Hook
 
 // NLU contract
 
@@ -83,11 +80,11 @@ type NLU interface {
 type Orchestrator struct {
 	Store   SessionStore
 	NLU     NLU
-	Funcs   IntentFunctions
+	Funcs   codehook.Hook
 	WorkDir string // path to workflow dir
 }
 
-func New(store SessionStore, nluClient nlu.Client, funcs IntentFunctions, workDir string) *Orchestrator {
+func New(store SessionStore, nluClient nlu.Client, funcs codehook.Hook, workDir string) *Orchestrator {
 	return &Orchestrator{Store: store, NLU: nluClient, Funcs: funcs, WorkDir: workDir}
 }
 
@@ -132,7 +129,7 @@ func (o *Orchestrator) Execute(clientID, userText string) (string, []session.Opt
 		case "validation":
 			// Pre validation func
 			if step.Validation != nil && step.Validation.Pre != nil && !state.ValidationDone {
-				result, err := o.Funcs.Call(step.Validation.Pre.Function, sess.Context, resolveArgs(sess.Context, map[string]any{}))
+				result, err := o.Funcs.Invoke(step.Validation.Pre.Function, sess.Context, resolveArgs(sess.Context, map[string]any{}))
 				if err != nil {
 					// on failure
 					next := step.Validation.Pre.OnFailure
@@ -192,7 +189,7 @@ func (o *Orchestrator) Execute(clientID, userText string) (string, []session.Opt
 
 			// post validation if defined
 			if step.Validation != nil && step.Validation.Post != nil {
-				_, err := o.Funcs.Call(step.Validation.Post.Function, sess.Context, map[string]any{"value": state.CapturedSlot})
+				_, err := o.Funcs.Invoke(step.Validation.Post.Function, sess.Context, map[string]any{"value": state.CapturedSlot})
 				if err != nil {
 					// retry
 					state.RetryCount++
@@ -224,7 +221,7 @@ func (o *Orchestrator) Execute(clientID, userText string) (string, []session.Opt
 						sess.CurrentStepID = s
 					} else {
 						// treat as function name to resolve next step
-						res, err := o.Funcs.Call(s, sess.Context, map[string]any{"value": state.CapturedSlot})
+						res, err := o.Funcs.Invoke(s, sess.Context, map[string]any{"value": state.CapturedSlot})
 						if err != nil {
 							sess.CurrentStepID = step.OnFailure
 						} else if ns, ok := res["nextStep"].(string); ok && ns != "" {
@@ -291,7 +288,7 @@ func (o *Orchestrator) collectOptions(sess *session.Session, step Step) ([]sessi
 		options = append(options, step.Options.Static...)
 		for _, f := range step.Options.Functions {
 			args := resolveArgs(sess.Context, f.Args)
-			res, err := o.Funcs.Call(f.Name, sess.Context, args)
+			res, err := o.Funcs.Invoke(f.Name, sess.Context, args)
 			if err != nil {
 				return nil, err
 			}

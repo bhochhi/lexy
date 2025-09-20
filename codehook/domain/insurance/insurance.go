@@ -3,14 +3,16 @@ package insurance
 import (
 	"strings"
 
-	"github.com/bhochhi/lexy/orchestrator"
+	"github.com/bhochhi/lexy/codehook"
 )
 
-// Registry of insurance domain functions
+// hooks implements the insurance domain functions dispatcher.
+type hooks struct{}
 
-type Registry struct{}
+// New returns the codehook.Hook for the insurance domain.
+func New() codehook.Hook { return &hooks{} }
 
-func (r *Registry) Call(name string, ctx map[string]any, args map[string]any) (map[string]any, error) {
+func (r *hooks) Invoke(name string, ctx map[string]any, args map[string]any) (map[string]any, error) {
 	switch name {
 	case "hasInsuranceProduct":
 		return hasInsuranceProduct(ctx, args)
@@ -29,4 +31,5 @@ func hasInsuranceProduct(ctx map[string]any, args map[string]any) (map[string]an
 	return map[string]any{"hasData": strings.Contains(cid, "ins")}, nil
 }
 
-var _ orchestrator.IntentFunctions = (*Registry)(nil)
+// Compile-time check (optional)
+var _ codehook.Hook = (*hooks)(nil)

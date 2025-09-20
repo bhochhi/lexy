@@ -7,9 +7,9 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/bhochhi/lexy/intent/findDeductible"
 	"github.com/bhochhi/lexy/nlu"
 	"github.com/bhochhi/lexy/orchestrator"
+	"github.com/bhochhi/lexy/registry"
 	"github.com/bhochhi/lexy/session"
 )
 
@@ -25,8 +25,9 @@ type ChatResponse struct {
 
 func main() {
 	store := session.NewStore()
-	funcs := findDeductible.NewRegistry()
-	orc := orchestrator.New(store, nluAdapter{}, funcs, workDir())
+	// Use central registry to avoid editing main.go when adding intents
+	funcs := registry.New()
+	orc := orchestrator.New(store, nlu.NewClient(), funcs, workDir())
 
 	http.HandleFunc("/chat", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
@@ -62,12 +63,6 @@ func workDir() string {
 }
 
 // nluAdapter implements orchestrator.NLU using our nlu package stub
-
-type nluAdapter struct{}
-
-func (n nluAdapter) DetectIntent(text, clientID string) (string, map[string]string, error) {
-	return nlu.DetectIntent(text, clientID)
-}
 
 func getenv(k, def string) string {
 	if v := os.Getenv(k); v != "" {

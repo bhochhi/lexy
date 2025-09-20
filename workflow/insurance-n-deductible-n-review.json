@@ -1,5 +1,6 @@
 {
   "intent": "findDeductible",
+  "nluIntent": "insurance-n-deductible-n-review",
   "description": "Helps client find deductible for one of their policies",
   "steps": [
     {

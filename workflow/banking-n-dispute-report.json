@@ -1,0 +1,92 @@
+{
+  "intent": "disputeTransaction",
+  "nluIntent": "banking-n-dispute-report",
+  "description": "Help client dispute a transaction on an eligible account",
+  "steps": [
+    {
+      "stepId": "preValidation",
+      "type": "validation",
+      "validation": {
+        "pre": {
+          "function": "checkClientAccounts",
+          "onSuccess": { "hasData": "selectAccount", "hasNoData": "noAccount" },
+          "onFailure": "fallback"
+        }
+      },
+      "onSuccess": "selectAccount",
+      "onFailure": "fallback"
+    },
+    {
+      "stepId": "selectAccount",
+      "type": "slot",
+      "skipNLU": false,
+      "prompts": [
+        "Which account is this transaction on?",
+        "Sorry, which account would you like to use?"
+      ],
+      "options": {
+        "functions": [
+          { "name": "getAccounts", "args": { "clientId": "{{context.clientId}}" } }
+        ]
+      },
+      "validation": {
+        "post": {
+          "function": "validateAccountSelection",
+          "onSuccess": "resolveDisputePath",
+          "onFailure": "selectAccount"
+        }
+      },
+      "onFailure": "fallback",
+      "maxRetries": 2
+    },
+    {
+      "stepId": "delinquencyNotice",
+      "type": "message",
+      "contents": [
+        { "text": "We noticed a delinquency on {{context.accountType}} ({{context.accountId}}). Please resolve that before filing a dispute." }
+      ],
+      "options": {
+        "static": [ { "text": "Contact Support" } ],
+        "functions": [
+          { "name": "getDelinquencyPortalLink", "args": { "accountId": "{{context.accountId}}" } }
+        ]
+      },
+      "onSuccess": "end",
+      "onFailure": "fallback"
+    },
+    {
+      "stepId": "disputeForm",
+      "type": "message",
+      "contents": [
+        { "text": "You can file a dispute for {{context.accountType}} ({{context.accountId}})." }
+      ],
+      "options": {
+        "functions": [
+          { "name": "getDisputeFormLink", "args": { "accountId": "{{context.accountId}}" } }
+        ]
+      },
+      "onSuccess": "end",
+      "onFailure": "fallback"
+    },
+    {
+      "stepId": "noAccount",
+      "type": "message",
+      "contents": [ { "text": "We couldn't find any eligible accounts for disputes." } ],
+      "options": {
+        "functions": [ { "name": "getContactOptions" } ]
+      },
+      "onSuccess": "end",
+      "onFailure": "fallback"
+    },
+    {
+      "stepId": "fallback",
+      "type": "message",
+      "contents": [ { "text": "Sorry, I couldn't complete your request. Please choose an option." } ],
+      "options": {
+        "static": [ { "text": "Chat with Agent" }, { "text": "Call Support" } ]
+      },
+      "onSuccess": "end",
+      "onFailure": "end"
+    }
+  ]
+}

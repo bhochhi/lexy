@@ -54,7 +54,7 @@ Requirements:
    - Functions called inside a step propagate failures to step-level `onFailure`.
 
 7. Function Calls:
-   - Organize functions per intent package: `intent/<intent_name>/functions.go`.
+   - Organize functions per intent package: `registry/intent/<intent_name>/functions.go`.
    - Each function receives session context and can update session.
    - Failures automatically propagate to step `onFailure`.
 

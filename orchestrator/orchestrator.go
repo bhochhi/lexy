@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/bhochhi/lexy/nlu"
 	"github.com/bhochhi/lexy/session"
 )
 
@@ -15,6 +16,7 @@ import (
 
 type Workflow struct {
 	Intent      string `json:"intent"`
+	NLUIntent   string `json:"nluIntent"`
 	Description string `json:"description"`
 	Steps       []Step `json:"steps"`
 }
@@ -85,8 +87,8 @@ type Orchestrator struct {
 	WorkDir string // path to workflow dir
 }
 
-func New(store SessionStore, nlu NLU, funcs IntentFunctions, workDir string) *Orchestrator {
-	return &Orchestrator{Store: store, NLU: nlu, Funcs: funcs, WorkDir: workDir}
+func New(store SessionStore, nluClient nlu.Client, funcs IntentFunctions, workDir string) *Orchestrator {
+	return &Orchestrator{Store: store, NLU: nluClient, Funcs: funcs, WorkDir: workDir}
 }
 
 // Execute handles a user input and returns response text + options.
@@ -94,8 +96,8 @@ func (o *Orchestrator) Execute(clientID, userText string) (string, []session.Opt
 	sess, ok := o.Store.Get(clientID)
 	if !ok {
 		// New session: run NLU (mocked) and initialize workflow
-		intent, slots, _ := o.NLU.DetectIntent(userText, clientID)
-		wf, err := o.loadWorkflow(intent)
+		nluIntent, slots, _ := o.NLU.DetectIntent(userText, clientID)
+		wf, err := o.loadWorkflowByNLU(nluIntent)
 		if err != nil {
 			return "", nil, err
 		}
@@ -103,14 +105,15 @@ func (o *Orchestrator) Execute(clientID, userText string) (string, []session.Opt
 			ClientID:      clientID,
 			CurrentStepID: firstStepID(wf),
 			StepsState:    map[string]*session.StepState{},
-			Context:       map[string]any{"intent": intent, "clientId": clientID},
+			// Store canonical internal intent under "intent"; keep nluIntent for reference
+			Context: map[string]any{"intent": wf.Intent, "nluIntent": nluIntent, "clientId": clientID},
 		}
 		for k, v := range slots {
 			sess.Context[k] = v
 		}
 	}
 
-	wf, err := o.loadWorkflow(fmt.Sprintf("%v", sess.Context["intent"]))
+	wf, err := o.loadWorkflow(fmt.Sprintf("%v", sess.Context["nluIntent"]))
 	if err != nil {
 		return "", nil, err
 	}
@@ -318,6 +321,57 @@ func (o *Orchestrator) loadWorkflow(intent string) (*Workflow, error) {
 		return nil, err
 	}
 	return &wf, nil
+}
+
+// loadWorkflowByNLU locates a workflow using the business/NLU intent name.
+// Strategy:
+// 1) If a file named <nluIntent>.json exists, load it.
+// 2) Else, scan all workflow JSONs and pick the one whose nluIntent matches.
+// 3) Else, fall back to using the nluIntent as the internal intent (legacy behavior).
+func (o *Orchestrator) loadWorkflowByNLU(nluIntent string) (*Workflow, error) {
+	if nluIntent == "" {
+		return nil, errors.New("missing nlu intent")
+	}
+	// Fast path: filename match
+	p := filepath.Join(o.WorkDir, fmt.Sprintf("%s.json", nluIntent))
+	if b, err := os.ReadFile(p); err == nil {
+		var wf Workflow
+		if err := json.Unmarshal(b, &wf); err != nil {
+			return nil, err
+		}
+		return &wf, nil
+	}
+	// Scan all workflows for nluIntent match
+	entries, err := os.ReadDir(o.WorkDir)
+	if err != nil {
+		return nil, err
+	}
+	for _, e := range entries {
+		if e.IsDir() || !strings.HasSuffix(e.Name(), ".json") {
+			continue
+		}
+		b, err := os.ReadFile(filepath.Join(o.WorkDir, e.Name()))
+		if err != nil {
+			continue
+		}
+		// Use a lightweight struct to peek fields
+		var meta struct {
+			Intent    string `json:"intent"`
+			NLUIntent string `json:"nluIntent"`
+		}
+		if err := json.Unmarshal(b, &meta); err != nil {
+			continue
+		}
+		if strings.EqualFold(meta.NLUIntent, nluIntent) {
+			var wf Workflow
+			if err := json.Unmarshal(b, &wf); err != nil {
+				return nil, err
+			}
+			return &wf, nil
+		}
+	}
+	// Fallback: treat nluIntent as internal intent (legacy)
+	return o.loadWorkflow(nluIntent)
 }
 
 func firstStepID(wf *Workflow) string {

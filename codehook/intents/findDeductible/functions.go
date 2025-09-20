@@ -15,48 +15,43 @@ func NewRegistry() *Registry { return &Registry{} }
 
 // Call dispatches function by name.
 func (r *Registry) Call(name string, ctx map[string]any, args map[string]any) (map[string]any, error) {
-	switch name {
-	case "checkClientPolicies":
-		return fnCheckClientPolicies(ctx, args)
-	case "getDynamicPolicies":
-		return fnGetDynamicPolicies(ctx, args)
-	case "validatePolicySelection":
-		return fnValidatePolicySelection(ctx, args)
-	case "getClientVehicles":
-		return fnGetClientVehicles(ctx, args)
-	case "validateVehicleSelection":
-		return fnValidateVehicleSelection(ctx, args)
-	case "getHomePolicies":
-		return fnGetHomePolicies(ctx, args)
-	case "validateHomeSelection":
-		return fnValidateHomeSelection(ctx, args)
-	case "getRenterPolicies":
-		return fnGetRenterPolicies(ctx, args)
-	case "validateRenterSelection":
-		return fnValidateRenterSelection(ctx, args)
-	case "getPolicyPortalLink":
-		return fnGetPolicyPortalLink(ctx, args)
-	case "getContactOptions":
-		return fnGetContactOptions(ctx, args)
-	case "resolveNextStepFunction":
-		return fnResolveNextStep(ctx, args)
-	default:
-		return nil, fmt.Errorf("unknown function: %s", name)
+	funcMap := map[string]func(map[string]any, map[string]any) (map[string]any, error){
+		"checkClientPolicies":      checkClientPolicies,
+		"getDynamicPolicies":       getDynamicPolicies,
+		"validatePolicySelection":  validatePolicySelection,
+		"getClientVehicles":        getClientVehicles,
+		"validateVehicleSelection": validateVehicleInput,
+		"getHomePolicies":          retrieveHomePolicyOptions,
+		"validateHomeSelection":    validateHomeSelection,
+		"getRenterPolicies":        getRenterPolicies,
+		"validateRenterSelection":  validateRenterSelection,
+		"getPolicyPortalLink":      getPolicyPortalLink,
+		"getContactOptions":        getContactOptions,
+		"resolveNextStepFunction":  resolveNextStep,
 	}
+	if fn, ok := funcMap[name]; ok {
+		return fn(ctx, args)
+	}
+	return nil, fmt.Errorf("unknown function: %s", name)
 }
+
+// Registration is manual via registry.New(); no init-based registration here.
 
 // --- Function implementations (mocked) ---
 
-func fnCheckClientPolicies(ctx map[string]any, args map[string]any) (map[string]any, error) {
+func checkClientPolicies(ctx map[string]any, args map[string]any) (map[string]any, error) {
 	// Pretend to check via API; here we mock that client has data unless clientId ends with 0
-	cid, _ := ctx["clientId"].(string)
+	cid, _ := args["clientId"].(string)
+	if cid == "" {
+		cid, _ = ctx["clientId"].(string)
+	}
 	if strings.HasSuffix(cid, "0") {
 		return map[string]any{"hasData": false, "hasNoData": true}, nil
 	}
 	return map[string]any{"hasData": true, "hasNoData": false}, nil
 }
 
-func fnGetDynamicPolicies(ctx map[string]any, args map[string]any) (map[string]any, error) {
+func getDynamicPolicies(ctx map[string]any, args map[string]any) (map[string]any, error) {
 	// Build options dynamically; in real code, query user policies
 	options := []session.Option{
 		{Text: "Umbrella Policy"},
@@ -64,7 +59,7 @@ func fnGetDynamicPolicies(ctx map[string]any, args map[string]any) (map[string]a
 	return map[string]any{"options": options}, nil
 }
 
-func fnValidatePolicySelection(ctx map[string]any, args map[string]any) (map[string]any, error) {
+func validatePolicySelection(ctx map[string]any, args map[string]any) (map[string]any, error) {
 	val, _ := args["value"].(string)
 	val = strings.TrimSpace(val)
 	if val == "" {
@@ -80,7 +75,7 @@ func fnValidatePolicySelection(ctx map[string]any, args map[string]any) (map[str
 	}
 }
 
-func fnGetClientVehicles(ctx map[string]any, args map[string]any) (map[string]any, error) {
+func getClientVehicles(ctx map[string]any, args map[string]any) (map[string]any, error) {
 	// Mock two vehicles
 	options := []session.Option{
 		{Text: "2019 Honda Civic - ABC123"},
@@ -89,7 +84,7 @@ func fnGetClientVehicles(ctx map[string]any, args map[string]any) (map[string]an
 	return map[string]any{"options": options}, nil
 }
 
-func fnValidateVehicleSelection(ctx map[string]any, args map[string]any) (map[string]any, error) {
+func validateVehicleInput(ctx map[string]any, args map[string]any) (map[string]any, error) {
 	val, _ := args["value"].(string)
 	if val == "" {
 		return nil, errors.New("no vehicle")
@@ -108,12 +103,12 @@ func fnValidateVehicleSelection(ctx map[string]any, args map[string]any) (map[st
 	return map[string]any{"ok": true}, nil
 }
 
-func fnGetHomePolicies(ctx map[string]any, args map[string]any) (map[string]any, error) {
+func retrieveHomePolicyOptions(ctx map[string]any, args map[string]any) (map[string]any, error) {
 	options := []session.Option{{Text: "Home-123"}, {Text: "Home-456"}}
 	return map[string]any{"options": options}, nil
 }
 
-func fnValidateHomeSelection(ctx map[string]any, args map[string]any) (map[string]any, error) {
+func validateHomeSelection(ctx map[string]any, args map[string]any) (map[string]any, error) {
 	val, _ := args["value"].(string)
 	if val == "" {
 		return nil, errors.New("no home policy")
@@ -123,12 +118,12 @@ func fnValidateHomeSelection(ctx map[string]any, args map[string]any) (map[strin
 	return map[string]any{"ok": true}, nil
 }
 
-func fnGetRenterPolicies(ctx map[string]any, args map[string]any) (map[string]any, error) {
+func getRenterPolicies(ctx map[string]any, args map[string]any) (map[string]any, error) {
 	options := []session.Option{{Text: "Rent-111"}, {Text: "Rent-222"}}
 	return map[string]any{"options": options}, nil
 }
 
-func fnValidateRenterSelection(ctx map[string]any, args map[string]any) (map[string]any, error) {
+func validateRenterSelection(ctx map[string]any, args map[string]any) (map[string]any, error) {
 	val, _ := args["value"].(string)
 	if val == "" {
 		return nil, errors.New("no renter policy")
@@ -138,17 +133,17 @@ func fnValidateRenterSelection(ctx map[string]any, args map[string]any) (map[str
 	return map[string]any{"ok": true}, nil
 }
 
-func fnGetPolicyPortalLink(ctx map[string]any, args map[string]any) (map[string]any, error) {
+func getPolicyPortalLink(ctx map[string]any, args map[string]any) (map[string]any, error) {
 	num, _ := ctx["policyNumber"].(string)
 	return map[string]any{"options": []map[string]any{{"text": "Open Portal", "url": "https://portal.example/policy/" + num}}}, nil
 }
 
-func fnGetContactOptions(ctx map[string]any, args map[string]any) (map[string]any, error) {
+func getContactOptions(ctx map[string]any, args map[string]any) (map[string]any, error) {
 	return map[string]any{"options": []map[string]any{{"text": "Email Support"}, {"text": "Call 1-800-555"}}}, nil
 }
 
 // Example of dynamic next step resolver used by autoPolicyDetail
-func fnResolveNextStep(ctx map[string]any, args map[string]any) (map[string]any, error) {
+func resolveNextStep(ctx map[string]any, args map[string]any) (map[string]any, error) {
 	// In real logic, we might branch by vehicle coverage; here always go to deductibleResult
 	return map[string]any{"nextStep": "deductibleResult"}, nil
 }

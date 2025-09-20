@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Lexy Server",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}",
+      "env": {
+        "WORKFLOW_DIR": "${workspaceFolder}/workflow"
+      },
+      "cwd": "${workspaceFolder}",
+      "args": [],
+      "buildFlags": "",
+      "dlvFlags": [],
+      "trace": "verbose"
+    }
+  ]
+}

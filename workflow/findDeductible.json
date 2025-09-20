@@ -1,0 +1,174 @@
+{
+  "intent": "findDeductible",
+  "description": "Helps client find deductible for one of their policies",
+  "steps": [
+    {
+      "stepId": "preValidation",
+      "type": "validation",
+      "validation": {
+        "pre": {
+          "function": "checkClientPolicies",
+          "onSuccess": {
+            "hasData": "policyType",
+            "hasNoData": "noPolicy"
+          },
+          "onFailure": "fallback"
+        }
+      },
+      "onSuccess": "policyType",
+      "onFailure": "fallback"
+    },
+    {
+      "stepId": "policyType",
+      "type": "slot",
+      "skipNLU": false,
+      "prompts": [
+        "Which policy would you like to check?",
+        "Sorry, I didn’t catch that. Can you tell me which policy type?"
+      ],
+      "options": {
+        "static": [
+          { "text": "Auto Policy" },
+          { "text": "Home Policy" },
+          { "text": "Renter Policy" }
+        ],
+        "functions": [
+          { "name": "getDynamicPolicies", "args": { "clientId": "{{context.clientId}}" } }
+        ]
+      },
+      "validation": {
+        "post": {
+          "function": "validatePolicySelection",
+          "onSuccess": {
+            "Auto Policy": "autoPolicyDetail",
+            "Home Policy": "homePolicyDetail",
+            "Renter Policy": "renterPolicyDetail"
+          },
+          "onFailure": "policyType"
+        }
+      },
+      "onFailure": "fallback",
+      "maxRetries": 2
+    },
+    {
+      "stepId": "autoPolicyDetail",
+      "type": "slot",
+      "skipNLU": true,
+      "prompts": [
+        "Please select the vehicle from your auto policies.",
+        "Could you pick one from the list?"
+      ],
+      "options": {
+        "functions": [
+          { "name": "getClientVehicles", "args": { "policyNumber": "{{context.policyNumber}}" } }
+        ]
+      },
+      "validation": {
+        "post": {
+          "function": "validateVehicleSelection",
+          "onSuccess": "resolveNextStepFunction",
+          "onFailure": "autoPolicyDetail"
+        }
+      },
+      "onFailure": "fallback",
+      "maxRetries": 2
+    },
+    {
+      "stepId": "homePolicyDetail",
+      "type": "slot",
+      "skipNLU": true,
+      "prompts": [
+        "Please select the home policy from your list.",
+        "Could you pick one from the list?"
+      ],
+      "options": {
+        "functions": [
+          { "name": "getHomePolicies", "args": { "clientId": "{{context.clientId}}" } }
+        ]
+      },
+      "validation": {
+        "post": {
+          "function": "validateHomeSelection",
+          "onSuccess": "deductibleResult",
+          "onFailure": "homePolicyDetail"
+        }
+      },
+      "onFailure": "fallback",
+      "maxRetries": 2
+    },
+    {
+      "stepId": "renterPolicyDetail",
+      "type": "slot",
+      "skipNLU": true,
+      "prompts": [
+        "Please select the renter policy from your list.",
+        "Could you pick one from the list?"
+      ],
+      "options": {
+        "functions": [
+          { "name": "getRenterPolicies", "args": { "clientId": "{{context.clientId}}" } }
+        ]
+      },
+      "validation": {
+        "post": {
+          "function": "validateRenterSelection",
+          "onSuccess": "deductibleResult",
+          "onFailure": "renterPolicyDetail"
+        }
+      },
+      "onFailure": "fallback",
+      "maxRetries": 2
+    },
+    {
+      "stepId": "deductibleResult",
+      "type": "message",
+      "contents": [
+        {
+          "text": "The deductible for your {{context.policyType}} policy ({{context.policyNumber}}) is {{context.deductible}}."
+        }
+      ],
+      "options": {
+        "static": [
+          { "text": "View Policy Details" }
+        ],
+        "functions": [
+          { "name": "getPolicyPortalLink", "args": { "policyNumber": "{{context.policyNumber}}" } }
+        ]
+      },
+      "onSuccess": "end",
+      "onFailure": "fallback"
+    },
+    {
+      "stepId": "noPolicy",
+      "type": "message",
+      "contents": [
+        { "text": "You don’t have any active policies with us." }
+      ],
+      "options": {
+        "static": [
+          { "text": "Create Policy" }
+        ],
+        "functions": [
+          { "name": "getContactOptions" }
+        ]
+      },
+      "onSuccess": "end",
+      "onFailure": "fallback"
+    },
+    {
+      "stepId": "fallback",
+      "type": "message",
+      "contents": [
+        { "text": "I’m sorry, I wasn’t able to complete your request. Please choose one of the options below:" }
+      ],
+      "options": {
+        "static": [
+          { "text": "Chat with Agent" },
+          { "text": "Call Support" }
+        ]
+      },
+      "onSuccess": "end",
+      "onFailure": "end"
+    }
+  ]
+}

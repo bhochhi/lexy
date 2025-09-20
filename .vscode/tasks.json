@@ -1,0 +1,15 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "kill-ports",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-lc",
+        "PIDS=$(lsof -ti tcp:8080,8081); if [ -n \"$PIDS\" ]; then kill -9 $PIDS; fi; exit 0"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}

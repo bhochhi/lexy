@@ -1,6 +1,7 @@
 {
   "version": "0.2.0",
   "configurations": [
+
     {
       "name": "Debug Lexy Server",
       "type": "go",
@@ -8,12 +9,16 @@
       "mode": "auto",
       "program": "${workspaceFolder}",
       "env": {
-        "WORKFLOW_DIR": "${workspaceFolder}/workflow"
+        "WORKFLOW_DIR": "${workspaceFolder}/workflow",
+        "HOST": "127.0.0.1",
+        "PORT": "8080"
       },
       "cwd": "${workspaceFolder}",
       "args": [],
       "buildFlags": "",
       "dlvFlags": [],
+      "preLaunchTask": "kill-ports",
+      "postDebugTask": "kill-ports",
       "trace": "verbose"
     }
   ]

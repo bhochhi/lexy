@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"log"
+	"net"
 	"net/http"
 	"os"
 
@@ -47,7 +48,7 @@ func main() {
 		_ = json.NewEncoder(w).Encode(ChatResponse{ResponseText: text, Options: opts})
 	})
 
-	addr := ":8080"
+	addr := net.JoinHostPort(getenv("HOST", "127.0.0.1"), getenv("PORT", "8080"))
 	log.Printf("listening on %s", addr)
 	log.Fatal(http.ListenAndServe(addr, nil))
 }
@@ -66,4 +67,11 @@ type nluAdapter struct{}
 
 func (n nluAdapter) DetectIntent(text, clientID string) (string, map[string]string, error) {
 	return nlu.DetectIntent(text, clientID)
+}
+
+func getenv(k, def string) string {
+	if v := os.Getenv(k); v != "" {
+		return v
+	}
+	return def
 }

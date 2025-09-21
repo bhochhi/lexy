@@ -64,7 +64,6 @@ sequenceDiagram
             ORC->>SS: Save(session)  Note right of SS: Save after awaiting user input or transition
             ORC-->>API: Return prompt + options (when waiting for user input)
             API-->>U: 200 OK { responseText, options }
-            break
         else Step.type == "message" | "fallback"
             ORC->>ORC: Render contents with {{context.*}} templating
             ORC->>REG: collectOptions() via functions/static
@@ -73,7 +72,6 @@ sequenceDiagram
                 ORC->>SS: Save(session)
                 ORC-->>API: Return message + options
                 API-->>U: 200 OK { responseText, options }
-                break
             else onSuccess is next step
                 ORC->>ORC: Move to next step and continue
             end

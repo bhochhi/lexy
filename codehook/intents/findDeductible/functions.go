@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/bhochhi/lexy/codehook"
+	"github.com/bhochhi/lexy/internal/logx"
 	"github.com/bhochhi/lexy/session"
 )
 
@@ -63,14 +64,17 @@ func validatePolicySelection(ctx map[string]any, args map[string]any) (map[strin
 	val, _ := args["value"].(string)
 	val = strings.TrimSpace(val)
 	if val == "" {
+		logx.Warn("validate_policy_selection_empty", map[string]any{"value": val})
 		return nil, errors.New("empty selection")
 	}
 	// accept if known
 	switch val {
 	case "Auto Policy", "Home Policy", "Renter Policy", "Umbrella Policy":
+		logx.Info("validate_policy_selection_ok", map[string]any{"value": val})
 		ctx["policyType"] = val
 		return map[string]any{"ok": true}, nil
 	default:
+		logx.Warn("validate_policy_selection_invalid", map[string]any{"value": val})
 		return nil, errors.New("invalid policy type")
 	}
 }

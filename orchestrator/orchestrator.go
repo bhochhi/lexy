@@ -57,7 +57,7 @@ type Validation struct {
 type ValidationCall struct {
 	Function  string `json:"function"`
 	OnSuccess any    `json:"onSuccess"` // string | map[string]string | special resolver
-	OnFailure string `json:"onFailure"`
+	OnFailure string `json:"onFailure"` // stepId
 }
 
 // Session contracts (shared with session.go)

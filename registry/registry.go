@@ -1,6 +1,7 @@
 package registry
 
 import (
+	"os"
 	"strings"
 	"sync"
 
@@ -11,17 +12,28 @@ import (
 	chInsurance "github.com/bhochhi/lexy/codehook/domain/insurance"
 	chDispute "github.com/bhochhi/lexy/codehook/intents/disputeTransaction"
 	chDeductible "github.com/bhochhi/lexy/codehook/intents/findDeductible"
+	"github.com/bhochhi/lexy/internal/httpc"
 )
 
 // New returns a single IntentFunctions wrapping whatever intents self-registered.
 func New() codehook.Hook {
+	// Construct shared clients/deps
+	httpBase := getenv("HTTPBIN_URL", "https://httpbin.org")
+	httpKey := getenv("HTTPBIN_API_KEY", "")
+	httpClient := httpc.NewHTTPBin(httpBase, httpKey)
+
 	// Manual registration to avoid init() and import cycles.
-	RegisterDomain("banking", chBanking.New())
+	RegisterDomain("banking", chBanking.NewWithHTTP(httpClient))
 	RegisterDomain("insurance", chInsurance.New())
 	RegisterIntent("disputeTransaction", chDispute.New())
 	RegisterIntent("findDeductible", chDeductible.New())
 
 	return newCompositeFuncs(All())
+}
+
+func getenv(k, def string) string {
+	if v := os.Getenv(k); v != "" { return v }
+	return def
 }
 
 // Composite forwards function calls to the registry matching the current session intent.

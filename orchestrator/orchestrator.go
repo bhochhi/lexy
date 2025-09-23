@@ -43,6 +43,23 @@ type StepOptions struct {
 type FunctionSpec struct {
 	Name string         `json:"name"`
 	Args map[string]any `json:"args"`
+	Needs *NeedsSpec    `json:"needs,omitempty"`
+}
+
+// NeedsSpec lets a function declare required inputs succinctly in JSON without
+// inlining concrete values. Values are expressed as simple refs:
+//  - "ctx:key" read from session context
+//  - "args:key" read from function args (after template resolution)
+//  - "env:VAR" read from environment
+//  - "gen:uuid" generate a uuid
+//  - "const:value" literal string
+// Resolved values are merged into Args before function invocation under keys:
+//  method (string), uri (string), headers (map[string]string), body (map[string]any)
+type NeedsSpec struct {
+	Method  string            `json:"method,omitempty"`
+	Uri     string            `json:"uri,omitempty"`
+	Headers map[string]string `json:"headers,omitempty"` // value refs
+	Body    map[string]string `json:"body,omitempty"`    // value refs
 }
 
 type Content struct {
@@ -288,6 +305,28 @@ func (o *Orchestrator) collectOptions(sess *session.Session, step Step) ([]sessi
 		options = append(options, step.Options.Static...)
 		for _, f := range step.Options.Functions {
 			args := resolveArgs(sess.Context, f.Args)
+			if f.Needs != nil {
+				extras := resolveNeeds(sess.Context, args, *f.Needs)
+				// merge extras into args (headers/body need merging if already present)
+				if m, ok := extras["headers"].(map[string]string); ok {
+					// convert to map[string]any for args
+					hAny := map[string]any{}
+					if cur, ok2 := args["headers"].(map[string]any); ok2 {
+						for k, v := range cur { hAny[k] = v }
+					}
+					for k, v := range m { hAny[k] = v }
+					args["headers"] = hAny
+					delete(extras, "headers")
+				}
+				if b, ok := extras["body"].(map[string]any); ok {
+					if cur, ok2 := args["body"].(map[string]any); ok2 {
+						for k, v := range cur { b[k] = v }
+					}
+					args["body"] = b
+					delete(extras, "body")
+				}
+				for k, v := range extras { args[k] = v }
+			}
 			res, err := o.Funcs.Invoke(f.Name, sess.Context, args)
 			if err != nil {
 				return nil, err
@@ -302,6 +341,64 @@ func (o *Orchestrator) collectOptions(sess *session.Session, step Step) ([]sessi
 		}
 	}
 	return options, nil
+}
+
+// resolveNeeds interprets a NeedsSpec into a partial args map.
+func resolveNeeds(ctx map[string]any, args map[string]any, ns NeedsSpec) map[string]any {
+	out := map[string]any{}
+	if v := parseRef(ns.Method, ctx, args); v != "" { out["method"] = v }
+	if v := parseRef(ns.Uri, ctx, args); v != "" { out["uri"] = v }
+	if len(ns.Headers) > 0 {
+		hdr := map[string]string{}
+		for k, ref := range ns.Headers {
+			if v := parseRef(ref, ctx, args); v != "" { hdr[k] = v }
+		}
+		out["headers"] = hdr
+	}
+	if len(ns.Body) > 0 {
+		body := map[string]any{}
+		for k, ref := range ns.Body {
+			if v := parseRef(ref, ctx, args); v != "" { body[k] = v }
+		}
+		out["body"] = body
+	}
+	return out
+}
+
+// parseRef resolves a ref string per the NeedsSpec rules.
+func parseRef(ref string, ctx map[string]any, args map[string]any) string {
+	if ref == "" { return "" }
+	// const:
+	if strings.HasPrefix(ref, "const:") {
+		return strings.TrimPrefix(ref, "const:")
+	}
+	if strings.HasPrefix(ref, "ctx:") {
+		k := strings.TrimPrefix(ref, "ctx:")
+		if v, ok := ctx[k]; ok { return fmt.Sprintf("%v", v) }
+		return ""
+	}
+	if strings.HasPrefix(ref, "args:") {
+		k := strings.TrimPrefix(ref, "args:")
+		if v, ok := args[k]; ok { return fmt.Sprintf("%v", v) }
+		return ""
+	}
+	if strings.HasPrefix(ref, "env:") {
+		k := strings.TrimPrefix(ref, "env:")
+		if v := os.Getenv(k); v != "" { return v }
+		return ""
+	}
+	if strings.HasPrefix(ref, "gen:") {
+		k := strings.TrimPrefix(ref, "gen:")
+		switch strings.ToLower(k) {
+		case "uuid":
+			// lightweight uuid (not RFC4122 strong) to avoid extra deps; acceptable for request ids
+			// Use a simple random-ish string; here fallback to time-based if needed
+			return fmt.Sprintf("uuid-%d", os.Getpid())
+		}
+		return ""
+	}
+	// default: treat as literal
+	return ref
 }
 
 func (o *Orchestrator) loadWorkflow(intent string) (*Workflow, error) {

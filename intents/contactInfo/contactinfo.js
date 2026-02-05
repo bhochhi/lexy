@@ -8,6 +8,7 @@ exports.handler = async (event) => {
 
   // Dummy data for example purposes
   const accounts = {
+    "loan": ["Loan Account 1: $10,000", "Loan Account 2: $20,000"],
     "checking": ["Checking Account 1: $1,200", "Checking Account 2: $2,500"],
     "savings": ["Savings Account 1: $5,000", "Savings Account 2: $10,000"],
     "credit": ["Credit Account 1: $500", "Credit Account 2: $1,000"]
